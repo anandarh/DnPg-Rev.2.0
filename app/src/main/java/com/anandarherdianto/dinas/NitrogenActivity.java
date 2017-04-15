@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anandarherdianto.dinas.helper.NRecommendation;
 import com.anandarherdianto.dinas.util.CompressImage;
 import com.anandarherdianto.dinas.util.MyAlgorithm;
 import com.anandarherdianto.dinas.util.NitrogenImageDialogBox;
@@ -31,7 +32,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             imgNitrogen4, imgNitrogen5, imgNitrogen6;
 
     private TextView lblLevelImg1, lblLevelImg2, lblLevelImg3,
-            lblLevelImg4, lblLevelImg5, lblLevelImg6;
+            lblLevelImg4, lblLevelImg5, lblLevelImg6, lblLevelRata;
 
     private Bitmap bmpNitrogen1, bmpNitrogen2, bmpNitrogen3,
             bmpNitrogen4, bmpNitrogen5, bmpNitrogen6;
@@ -69,6 +70,8 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private CompressImage ci;
 
+    private NRecommendation nr;
+
     private ScrollView sc;
 
 
@@ -94,6 +97,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         lblLevelImg4 = (TextView) findViewById(R.id.lblLevelImg4);
         lblLevelImg5 = (TextView) findViewById(R.id.lblLevelImg5);
         lblLevelImg6 = (TextView) findViewById(R.id.lblLevelImg6);
+        lblLevelRata = (TextView) findViewById(R.id.lblLevelRata);
 
         frmResult = findViewById(R.id.frmResult);
 
@@ -108,6 +112,8 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         my = new MyAlgorithm();
 
         ci = new CompressImage();
+
+        nr = new NRecommendation();
 
         imgNitrogen1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +168,9 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             public void onClick(View v) {
                 //if (imgStatus1 //&& imgStatus2 && imgStatus3 && imgStatus4 && imgStatus5
                        // && imgStatus6) {
+
+                    nr.process();
+                    lblLevelRata.setText(nr.getAvgLevel());
 
                     frmResult.setVisibility(View.VISIBLE);
                     frmResult.setAlpha(0.0f);
@@ -422,7 +431,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg1.setText(my.getResultLevel());
 
-            level1 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel1(Integer.parseInt(my.getResultLevel()));
 
             imgStatus1 = true;
         } catch (NullPointerException e) {
@@ -442,7 +451,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg2.setText(my.getResultLevel());
 
-            level2 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel2(Integer.parseInt(my.getResultLevel()));
 
             imgStatus2 = true;
         } catch (NullPointerException e) {
@@ -462,7 +471,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg3.setText(my.getResultLevel());
 
-            level3 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel3(Integer.parseInt(my.getResultLevel()));
 
             imgStatus3 = true;
         } catch (NullPointerException e) {
@@ -482,7 +491,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg4.setText(my.getResultLevel());
 
-            level4 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel4(Integer.parseInt(my.getResultLevel()));
 
             imgStatus4 = true;
         } catch (NullPointerException e) {
@@ -502,7 +511,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg5.setText(my.getResultLevel());
 
-            level5 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel5(Integer.parseInt(my.getResultLevel()));
 
             imgStatus5 = true;
         } catch (NullPointerException e) {
@@ -522,7 +531,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg6.setText(my.getResultLevel());
 
-            level6 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel6(Integer.parseInt(my.getResultLevel()));
 
             imgStatus6 = true;
         } catch (NullPointerException e) {
@@ -544,7 +553,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg1.setText(my.getResultLevel());
 
-            level1 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel1(Integer.parseInt(my.getResultLevel()));
 
             imgStatus1 = true;
         }catch (NullPointerException e){
@@ -567,7 +576,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg2.setText(my.getResultLevel());
 
-            level2 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel2(Integer.parseInt(my.getResultLevel()));
 
             imgStatus2 = true;
         }catch (NullPointerException e){
@@ -590,7 +599,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg3.setText(my.getResultLevel());
 
-            level3 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel3(Integer.parseInt(my.getResultLevel()));
 
             imgStatus3 = true;
         }catch (NullPointerException e){
@@ -613,7 +622,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg4.setText(my.getResultLevel());
 
-            level4 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel4(Integer.parseInt(my.getResultLevel()));
 
             imgStatus4 = true;
         }catch (NullPointerException e){
@@ -636,7 +645,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg5.setText(my.getResultLevel());
 
-            level5 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel5(Integer.parseInt(my.getResultLevel()));
 
             imgStatus5 = true;
         }catch (NullPointerException e){
@@ -659,7 +668,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg6.setText(my.getResultLevel());
 
-            level6 = Integer.parseInt(my.getResultLevel());
+            nr.setLevel6(Integer.parseInt(my.getResultLevel()));
 
             imgStatus6 = true;
         }catch (NullPointerException e){
