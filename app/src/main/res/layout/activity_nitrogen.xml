@@ -18,370 +18,551 @@
             android:src="@drawable/bg_sawah" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tvText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="Gambar Sampel"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toLeftOf="@id/tvText"
-                    android:background="@color/colorRed" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_toRightOf="@id/tvText"
-                    android:background="@color/colorRed" />
-
-            </RelativeLayout>
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <android.support.percent.PercentRelativeLayout
-                    android:id="@+id/frmImg1"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal">
-
-
-                    <ImageView
-                        android:id="@+id/imgNitrogen1"
-                        android:background="@drawable/border"
-                        android:cropToPadding="true"
-                        android:padding="2dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_placeholder_analyzer"
-                        app:layout_aspectRatio="100%"
-                        app:layout_widthPercent="25%" />
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/lblLevelImg1"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imgNitrogen1"
-                        android:layout_marginTop="5dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorRed"
-                        app:layout_widthPercent="25%" />
-
-                    <ImageView
-                        android:id="@+id/imgNitrogen2"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toEndOf="@+id/imgNitrogen1"
-                        android:layout_toRightOf="@+id/imgNitrogen1"
-                        android:background="@drawable/border"
-                        android:cropToPadding="true"
-                        android:padding="2dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_placeholder_analyzer"
-                        app:layout_aspectRatio="100%"
-                        app:layout_widthPercent="25%" />
-
-                    <TextView
-                        android:id="@+id/lblLevelImg2"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imgNitrogen2"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/lblLevelImg1"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorRed"
-                        app:layout_widthPercent="25%" />
-
-                    <ImageView
-                        android:id="@+id/imgNitrogen3"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toEndOf="@+id/imgNitrogen2"
-                        android:layout_toRightOf="@+id/imgNitrogen2"
-                        android:background="@drawable/border"
-                        android:cropToPadding="true"
-                        android:padding="2dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_placeholder_analyzer"
-                        app:layout_aspectRatio="100%"
-                        app:layout_widthPercent="25%" />
-
-                    <TextView
-                        android:id="@+id/lblLevelImg3"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imgNitrogen3"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/lblLevelImg2"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorRed"
-                        app:layout_widthPercent="25%" />
-
-
-                </android.support.percent.PercentRelativeLayout>
-
-                <android.support.percent.PercentRelativeLayout
-                    android:id="@+id/frmImg2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal">
-
-
-                    <ImageView
-                        android:id="@+id/imgNitrogen4"
-                        android:background="@drawable/border"
-                        android:cropToPadding="true"
-                        android:padding="2dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_placeholder_analyzer"
-                        app:layout_aspectRatio="100%"
-                        app:layout_widthPercent="25%" />
-
-                    <TextView
-                        android:id="@+id/lblLevelImg4"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imgNitrogen4"
-                        android:layout_marginTop="5dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorRed"
-                        app:layout_widthPercent="25%" />
-
-                    <ImageView
-                        android:id="@+id/imgNitrogen5"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toEndOf="@+id/imgNitrogen4"
-                        android:layout_toRightOf="@+id/imgNitrogen4"
-                        android:background="@drawable/border"
-                        android:cropToPadding="true"
-                        android:padding="2dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_placeholder_analyzer"
-                        app:layout_aspectRatio="100%"
-                        app:layout_widthPercent="25%" />
-
-                    <TextView
-                        android:id="@+id/lblLevelImg5"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imgNitrogen5"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/lblLevelImg4"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorRed"
-                        app:layout_widthPercent="25%" />
-
-                    <ImageView
-                        android:id="@+id/imgNitrogen6"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toEndOf="@+id/imgNitrogen5"
-                        android:layout_toRightOf="@+id/imgNitrogen5"
-                        android:background="@drawable/border"
-                        android:cropToPadding="true"
-                        android:padding="2dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/img_placeholder_analyzer"
-                        app:layout_aspectRatio="100%"
-                        app:layout_widthPercent="25%" />
-
-                    <TextView
-                        android:id="@+id/lblLevelImg6"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imgNitrogen6"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/lblLevelImg5"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorRed"
-                        app:layout_widthPercent="25%" />
-
-
-                </android.support.percent.PercentRelativeLayout>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tvText2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="Target Produksi"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toLeftOf="@id/tvText2"
-                    android:background="@color/colorRed" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_toRightOf="@id/tvText2"
-                    android:background="@color/colorRed" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/limaTon"
+                        android:id="@+id/tvText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5 ton/ha" />
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Gambar Sampel"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                    <RadioButton
-                        android:id="@+id/enamTon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="6 ton/ha" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toLeftOf="@id/tvText"
+                        android:background="@color/colorRed" />
 
-                    <RadioButton
-                        android:id="@+id/tujuhTon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="7 ton/ha" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_toRightOf="@id/tvText"
+                        android:background="@color/colorRed" />
 
-                    <RadioButton
-                        android:id="@+id/delapanTon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="8 ton/ha" />
-
-                </RadioGroup>
-
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="15dp"
-                android:layout_weight="1"
-                android:background="@color/colorRed" />
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/frameAnalisis"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/line_bg"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
+                    <android.support.percent.PercentRelativeLayout
+                        android:id="@+id/frmImg1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/imgNitrogen1"
+                            android:background="@drawable/border"
+                            android:cropToPadding="true"
+                            android:padding="2dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_placeholder_analyzer"
+                            app:layout_aspectRatio="100%"
+                            app:layout_widthPercent="25%" />
+
+
+                        <ImageView
+                            android:id="@+id/imgNitrogen2"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toEndOf="@+id/imgNitrogen1"
+                            android:layout_toRightOf="@+id/imgNitrogen1"
+                            android:background="@drawable/border"
+                            android:cropToPadding="true"
+                            android:padding="2dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_placeholder_analyzer"
+                            app:layout_aspectRatio="100%"
+                            app:layout_widthPercent="25%" />
+
+
+                        <ImageView
+                            android:id="@+id/imgNitrogen3"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toEndOf="@+id/imgNitrogen2"
+                            android:layout_toRightOf="@+id/imgNitrogen2"
+                            android:background="@drawable/border"
+                            android:cropToPadding="true"
+                            android:padding="2dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_placeholder_analyzer"
+                            app:layout_aspectRatio="100%"
+                            app:layout_widthPercent="25%" />
+
+
+                    </android.support.percent.PercentRelativeLayout>
+
+                    <android.support.percent.PercentRelativeLayout
+                        android:id="@+id/frmImg2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/imgNitrogen4"
+                            android:background="@drawable/border"
+                            android:cropToPadding="true"
+                            android:padding="2dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_placeholder_analyzer"
+                            app:layout_aspectRatio="100%"
+                            app:layout_widthPercent="25%" />
+
+
+                        <ImageView
+                            android:id="@+id/imgNitrogen5"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toEndOf="@+id/imgNitrogen4"
+                            android:layout_toRightOf="@+id/imgNitrogen4"
+                            android:background="@drawable/border"
+                            android:cropToPadding="true"
+                            android:padding="2dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_placeholder_analyzer"
+                            app:layout_aspectRatio="100%"
+                            app:layout_widthPercent="25%" />
+
+
+                        <ImageView
+                            android:id="@+id/imgNitrogen6"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toEndOf="@+id/imgNitrogen5"
+                            android:layout_toRightOf="@+id/imgNitrogen5"
+                            android:background="@drawable/border"
+                            android:cropToPadding="true"
+                            android:padding="2dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_placeholder_analyzer"
+                            app:layout_aspectRatio="100%"
+                            app:layout_widthPercent="25%" />
+
+
+                    </android.support.percent.PercentRelativeLayout>
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/frameAnalisis"
-                    android:layout_marginTop="-8dp"
-                    android:gravity="center">
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1">
+
                     <TextView
+                        android:id="@+id/tvText2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorBg"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="Hasil Analisis"
-                        android:textColor="@android:color/white"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Target Produksi"
+                        android:textColor="#FFFFFF"
                         android:textSize="15sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toLeftOf="@id/tvText2"
+                        android:background="@color/colorRed" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_toRightOf="@id/tvText2"
+                        android:background="@color/colorRed" />
+
                 </RelativeLayout>
 
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <com.anandarherdianto.dinas.util.FButton
-                    android:id="@+id/btnProses"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="20dp"
-                    android:drawableLeft="@drawable/ic_process_black_24dp"
-                    android:drawablePadding="10dp"
-                    android:minHeight="50dp"
-                    android:minWidth="250dp"
-                    android:paddingLeft="80dp"
-                    android:paddingRight="70dp"
-                    android:text="Proses"
-                    android:textColor="@android:color/white"
-                    app:buttonColor="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:shadowEnabled="true"
-                    app:shadowHeight="5dp" />
+                    android:layout_weight="1"
+                    android:gravity="center">
 
-            </RelativeLayout>
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-        </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/limaTon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@android:drawable/btn_radio"
+                            android:gravity="center"
+                            android:text="5 ton/ha" />
+
+                        <RadioButton
+                            android:id="@+id/enamTon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:button="@null"
+                            android:drawableTop="@android:drawable/btn_radio"
+                            android:gravity="center"
+                            android:text="6 ton/ha" />
+
+                        <RadioButton
+                            android:id="@+id/tujuhTon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:button="@null"
+                            android:drawableTop="@android:drawable/btn_radio"
+                            android:gravity="center"
+                            android:text="7 ton/ha" />
+
+                        <RadioButton
+                            android:id="@+id/delapanTon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:button="@null"
+                            android:drawableTop="@android:drawable/btn_radio"
+                            android:gravity="center"
+                            android:text="8 ton/ha" />
+
+                    </RadioGroup>
 
 
-    </RelativeLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorRed" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/frameAnalisis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/line_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="20dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/frmRes1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/lblS1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:gravity="center"
+                                    android:text="Sampel 1 = "
+                                    android:textColor="@android:color/black" />
+
+                                <TextView
+                                    android:id="@+id/lblLevelImg1"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_toRightOf="@id/lblS1"
+                                    android:background="@drawable/circle_num_bg"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="3"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblS2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblS1"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="Sampel 2 = "
+                                    android:textColor="@android:color/black" />
+
+                                <TextView
+                                    android:id="@+id/lblLevelImg2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblLevelImg1"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toRightOf="@id/lblS2"
+                                    android:background="@drawable/circle_num_bg"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="3"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblS3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblS2"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="Sampel 3 = "
+                                    android:textColor="@android:color/black" />
+
+                                <TextView
+                                    android:id="@+id/lblLevelImg3"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblLevelImg2"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toRightOf="@id/lblS3"
+                                    android:background="@drawable/circle_num_bg"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="3"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_toRightOf="@id/frmRes1"
+                                android:layout_width="1dp"
+                                android:layout_height="115dp"
+                                android:layout_marginLeft="13dp"
+                                android:background="@drawable/vertical_dash_line"
+                                android:layerType="software"/>
+
+                            <RelativeLayout
+                                android:id="@+id/frmRes2"
+                                android:layout_toRightOf="@id/frmRes1"
+                                android:layout_marginLeft="25dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/lblS4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:gravity="center"
+                                    android:text="Sampel 4 = "
+                                    android:textColor="@android:color/black" />
+
+                                <TextView
+                                    android:id="@+id/lblLevelImg4"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_toRightOf="@id/lblS4"
+                                    android:background="@drawable/circle_num_bg"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="3"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblS5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblS4"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="Sampel 5 = "
+                                    android:textColor="@android:color/black" />
+
+                                <TextView
+                                    android:id="@+id/lblLevelImg5"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblLevelImg4"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toRightOf="@id/lblS5"
+                                    android:background="@drawable/circle_num_bg"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="3"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblS6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblS5"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="Sampel 6 = "
+                                    android:textColor="@android:color/black" />
+
+                                <TextView
+                                    android:id="@+id/lblLevelImg6"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/lblLevelImg5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toRightOf="@id/lblS6"
+                                    android:background="@drawable/circle_num_bg"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="3"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="250dp"
+                                android:layout_height="15dp"
+                                android:layout_below="@id/frmRes1"
+                                android:layout_marginTop="5dp"
+                                android:background="@drawable/horizontal_dash_line"
+                                android:layerType="software" />
+
+                            <TextView
+                                android:id="@+id/lblSRata"
+                                android:layout_width="90dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/frmRes1"
+                                android:layout_marginTop="25dp"
+                                android:gravity="center"
+                                android:text="Rata - Rata = "
+                                android:textStyle="bold"
+                                android:textColor="@android:color/black"/>
+
+                            <TextView
+                                android:id="@+id/lblLevelRata"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/frmRes1"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="25dp"
+                                android:layout_toRightOf="@id/lblSRata"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="5.5"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/frameAnalisis"
+                        android:layout_marginTop="-8dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorBg"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Hasil Analisis"
+                            android:textColor="@android:color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.anandarherdianto.dinas.util.FButton
+                        android:id="@+id/btnProses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="20dp"
+                        android:drawableLeft="@drawable/ic_process_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:minHeight="50dp"
+                        android:minWidth="250dp"
+                        android:paddingLeft="80dp"
+                        android:paddingRight="70dp"
+                        android:text="Proses"
+                        android:textColor="@android:color/white"
+                        app:buttonColor="@color/colorPrimary"
+                        app:cornerRadius="10dp"
+                        app:shadowEnabled="true"
+                        app:shadowHeight="5dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
