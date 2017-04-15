@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#198100</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBg">#0ac201</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#b30000</color>
+
+    //Warna Untuk FButton
+    <color name="fbutton_default_color">#3eadeb</color>
+    <color name="fbutton_default_shadow_color">#ff3493c8</color>
+</resources>

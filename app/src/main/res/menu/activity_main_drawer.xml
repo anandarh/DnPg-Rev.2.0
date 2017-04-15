@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menuTop"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dokumentasi"
+            android:icon="@drawable/ic_photo_library_black_24dp"
+            android:title="Dokumentasi" />
+    </group>
+
+
+    <item android:title="Nitrogen">
+        <menu>
+            <item
+                android:id="@+id/nav_analisis"
+                android:icon="@drawable/ic_polymer_black_24dp"
+                android:title="Analisis" />
+            <item
+                android:id="@+id/nav_riwayat"
+                android:icon="@drawable/ic_history_black_24dp"
+                android:title="Histori" />
+        </menu>
+    </item>
+
+
+    <group
+        android:id="@+id/menuDown"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_akun"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            android:title="Akun" />
+        <item
+            android:id="@+id/nav_bantuan"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:title="Bantuan" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_log_out"
+            android:title="Logout" />
+    </group>
+
+
+</menu>
