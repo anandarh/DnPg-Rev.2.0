@@ -77,6 +77,31 @@ public class NitrogenImageDialogBox extends DialogFragment {
             }
         });
 
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(code == "get1") {
+                    mListener.gallery1();
+                    dialog.dismiss();
+                } else if(code == "get2") {
+                    mListener.gallery2();
+                    dialog.dismiss();
+                } else if(code == "get3") {
+                    mListener.gallery3();
+                    dialog.dismiss();
+                } else if(code == "get4") {
+                    mListener.gallery4();
+                    dialog.dismiss();
+                } else if(code == "get5") {
+                    mListener.gallery5();
+                    dialog.dismiss();
+                } else if(code == "get6") {
+                    mListener.gallery6();
+                    dialog.dismiss();
+                }
+            }
+        });
+
 
         return dialog;
     }
@@ -88,6 +113,12 @@ public class NitrogenImageDialogBox extends DialogFragment {
         void camera4();
         void camera5();
         void camera6();
+        void gallery1();
+        void gallery2();
+        void gallery3();
+        void gallery4();
+        void gallery5();
+        void gallery6();
     }
 
     @Override

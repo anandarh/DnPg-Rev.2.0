@@ -6,17 +6,20 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anandarherdianto.dinas.util.CompressImage;
 import com.anandarherdianto.dinas.util.MyAlgorithm;
 import com.anandarherdianto.dinas.util.NitrogenImageDialogBox;
 
@@ -31,11 +34,18 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             lblLevelImg4, lblLevelImg5, lblLevelImg6;
 
     private Bitmap bmpNitrogen1, bmpNitrogen2, bmpNitrogen3,
-            bmpNitrogen4, bmpNitrogen5, bmpNitrogen6, imgSrc;
+            bmpNitrogen4, bmpNitrogen5, bmpNitrogen6;
 
     private Uri file_uri1, file_uri2, file_uri3,
             file_uri4, file_uri5, file_uri6;
 
+    private boolean imgStatus1, imgStatus2, imgStatus3,
+            imgStatus4, imgStatus5, imgStatus6 = false;
+
+    private int level1, level2, level3,
+            level4, level5, level6;
+
+    //From Camera
     static final int REQUEST_IMG_NITROGEN1 = 101;
     static final int REQUEST_IMG_NITROGEN2 = 102;
     static final int REQUEST_IMG_NITROGEN3 = 103;
@@ -43,12 +53,25 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     static final int REQUEST_IMG_NITROGEN5 = 105;
     static final int REQUEST_IMG_NITROGEN6 = 106;
 
+    //From Gallery
+    static final int REQUEST_IMG_NITROGEN7 = 107;
+    static final int REQUEST_IMG_NITROGEN8 = 108;
+    static final int REQUEST_IMG_NITROGEN9 = 109;
+    static final int REQUEST_IMG_NITROGEN10 = 110;
+    static final int REQUEST_IMG_NITROGEN11 = 111;
+    static final int REQUEST_IMG_NITROGEN12 = 112;
+
+    private View frmResult;
+
     private NitrogenImageDialogBox dialog;
 
     private MyAlgorithm my;
 
-    private boolean imgStatus1, imgStatus2, imgStatus3,
-            imgStatus4, imgStatus5, imgStatus6 = false;
+    private CompressImage ci;
+
+    private ScrollView sc;
+
+
 
 
     @Override
@@ -72,11 +95,19 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         lblLevelImg5 = (TextView) findViewById(R.id.lblLevelImg5);
         lblLevelImg6 = (TextView) findViewById(R.id.lblLevelImg6);
 
+        frmResult = findViewById(R.id.frmResult);
+
+        sc = (ScrollView) findViewById(R.id.scrollNitrogen);
+
         Button btnProses = (Button) findViewById(R.id.btnProses);
+
+        frmResult.setVisibility(View.GONE);
 
         dialog = new NitrogenImageDialogBox();
 
         my = new MyAlgorithm();
+
+        ci = new CompressImage();
 
         imgNitrogen1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,14 +160,31 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         btnProses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (imgStatus1 && imgStatus2 && imgStatus3 && imgStatus4 && imgStatus5
-                        && imgStatus6) {
+                //if (imgStatus1 //&& imgStatus2 && imgStatus3 && imgStatus4 && imgStatus5
+                       // && imgStatus6) {
 
-                } else {
+                    frmResult.setVisibility(View.VISIBLE);
+                    frmResult.setAlpha(0.0f);
+                    frmResult.setScaleY(0.0f);
+
+                    frmResult.animate().scaleY(1.0f).alpha(1.0f).setDuration(1000);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Do something after 100ms
+                        sc.fullScroll(ScrollView.FOCUS_DOWN);
+                    }
+                }, 300);
+
+
+
+               // } else {
                     Toast.makeText(getApplicationContext(),
                             "Ambil gambar sampel terlebih dahulu!", Toast.LENGTH_SHORT)
                             .show();
-                }
+               // }
             }
         });
 
@@ -191,6 +239,36 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         getFileUri();
         intent.putExtra(MediaStore.EXTRA_OUTPUT, file_uri6);
         startActivityForResult(intent, REQUEST_IMG_NITROGEN6);
+    }
+
+    public void gallery1(){
+        Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(iPicker, REQUEST_IMG_NITROGEN7);
+    }
+
+    public void gallery2(){
+        Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(iPicker, REQUEST_IMG_NITROGEN8);
+    }
+
+    public void gallery3(){
+        Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(iPicker, REQUEST_IMG_NITROGEN9);
+    }
+
+    public void gallery4(){
+        Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(iPicker, REQUEST_IMG_NITROGEN10);
+    }
+
+    public void gallery5(){
+        Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(iPicker, REQUEST_IMG_NITROGEN11);
+    }
+
+    public void gallery6(){
+        Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(iPicker, REQUEST_IMG_NITROGEN12);
     }
 
     @Override
@@ -296,6 +374,30 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
                 previewImageNitrogen6();
             }
 
+            if (requestCode == REQUEST_IMG_NITROGEN7) {
+                previewImageNitrogen7(data);
+            }
+
+            if (requestCode == REQUEST_IMG_NITROGEN8) {
+                previewImageNitrogen8(data);
+            }
+
+            if (requestCode == REQUEST_IMG_NITROGEN9) {
+                previewImageNitrogen9(data);
+            }
+
+            if (requestCode == REQUEST_IMG_NITROGEN10) {
+                previewImageNitrogen10(data);
+            }
+
+            if (requestCode == REQUEST_IMG_NITROGEN11) {
+                previewImageNitrogen11(data);
+            }
+
+            if (requestCode == REQUEST_IMG_NITROGEN12) {
+                previewImageNitrogen12(data);
+            }
+
         } else if (resultCode == RESULT_CANCELED) {
             //cancel by user
         } else {
@@ -310,20 +412,17 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     private void previewImageNitrogen1() {
         try {
 
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri1.toString()));
 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            bmpNitrogen1 = BitmapFactory.decodeFile(file_uri1.getPath(), options);
+            bmpNitrogen1 = cropImage(bf);
 
             imgNitrogen1.setImageBitmap(bmpNitrogen1);
 
             my.proses(getRGB(bmpNitrogen1));
 
             lblLevelImg1.setText(my.getResultLevel());
+
+            level1 = Integer.parseInt(my.getResultLevel());
 
             imgStatus1 = true;
         } catch (NullPointerException e) {
@@ -333,20 +432,17 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen2() {
         try {
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri2.toString()));
 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            bmpNitrogen2 = BitmapFactory.decodeFile(file_uri2.getPath(), options);
+            bmpNitrogen2 = cropImage(bf);
 
             imgNitrogen2.setImageBitmap(bmpNitrogen2);
 
             my.proses(getRGB(bmpNitrogen2));
 
             lblLevelImg2.setText(my.getResultLevel());
+
+            level2 = Integer.parseInt(my.getResultLevel());
 
             imgStatus2 = true;
         } catch (NullPointerException e) {
@@ -356,20 +452,17 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen3() {
         try {
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri3.toString()));
 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            bmpNitrogen3 = BitmapFactory.decodeFile(file_uri3.getPath(), options);
+            bmpNitrogen3 = cropImage(bf);
 
             imgNitrogen3.setImageBitmap(bmpNitrogen3);
 
             my.proses(getRGB(bmpNitrogen3));
 
             lblLevelImg3.setText(my.getResultLevel());
+
+            level3 = Integer.parseInt(my.getResultLevel());
 
             imgStatus3 = true;
         } catch (NullPointerException e) {
@@ -379,20 +472,17 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen4() {
         try {
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri4.toString()));
 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            bmpNitrogen4 = BitmapFactory.decodeFile(file_uri4.getPath(), options);
+            bmpNitrogen4 = cropImage(bf);
 
             imgNitrogen4.setImageBitmap(bmpNitrogen4);
 
             my.proses(getRGB(bmpNitrogen4));
 
             lblLevelImg4.setText(my.getResultLevel());
+
+            level4 = Integer.parseInt(my.getResultLevel());
 
             imgStatus4 = true;
         } catch (NullPointerException e) {
@@ -402,20 +492,17 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen5() {
         try {
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri5.toString()));
 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            bmpNitrogen5 = BitmapFactory.decodeFile(file_uri5.getPath(), options);
+            bmpNitrogen5 = cropImage(bf);
 
             imgNitrogen5.setImageBitmap(bmpNitrogen5);
 
             my.proses(getRGB(bmpNitrogen5));
 
             lblLevelImg5.setText(my.getResultLevel());
+
+            level5 = Integer.parseInt(my.getResultLevel());
 
             imgStatus5 = true;
         } catch (NullPointerException e) {
@@ -425,14 +512,9 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen6() {
         try {
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri6.toString()));
 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            bmpNitrogen6 = BitmapFactory.decodeFile(file_uri6.getPath(), options);
+            bmpNitrogen6 = cropImage(bf);
 
             imgNitrogen6.setImageBitmap(bmpNitrogen6);
 
@@ -440,14 +522,156 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
             lblLevelImg6.setText(my.getResultLevel());
 
+            level6 = Integer.parseInt(my.getResultLevel());
+
             imgStatus6 = true;
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
 
+    private void previewImageNitrogen7(Intent data){
+        Uri imgUri = data.getData();
 
-    private void cropImage(Bitmap srcBmp) {
+        try{
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+
+            bmpNitrogen1 = cropImage(bf);
+
+            imgNitrogen1.setImageBitmap(bmpNitrogen1);
+
+            my.proses(getRGB(bmpNitrogen1));
+
+            lblLevelImg1.setText(my.getResultLevel());
+
+            level1 = Integer.parseInt(my.getResultLevel());
+
+            imgStatus1 = true;
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void previewImageNitrogen8(Intent data){
+        Uri imgUri = data.getData();
+
+        try{
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+
+            bmpNitrogen2 = cropImage(bf);
+
+            imgNitrogen2.setImageBitmap(bmpNitrogen2);
+
+            my.proses(getRGB(bmpNitrogen2));
+
+            lblLevelImg2.setText(my.getResultLevel());
+
+            level2 = Integer.parseInt(my.getResultLevel());
+
+            imgStatus2 = true;
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void previewImageNitrogen9(Intent data){
+        Uri imgUri = data.getData();
+
+        try{
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+
+            bmpNitrogen3 = cropImage(bf);
+
+            imgNitrogen3.setImageBitmap(bmpNitrogen3);
+
+            my.proses(getRGB(bmpNitrogen3));
+
+            lblLevelImg3.setText(my.getResultLevel());
+
+            level3 = Integer.parseInt(my.getResultLevel());
+
+            imgStatus3 = true;
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void previewImageNitrogen10(Intent data){
+        Uri imgUri = data.getData();
+
+        try{
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+
+            bmpNitrogen4 = cropImage(bf);
+
+            imgNitrogen4.setImageBitmap(bmpNitrogen4);
+
+            my.proses(getRGB(bmpNitrogen4));
+
+            lblLevelImg4.setText(my.getResultLevel());
+
+            level4 = Integer.parseInt(my.getResultLevel());
+
+            imgStatus4 = true;
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void previewImageNitrogen11(Intent data){
+        Uri imgUri = data.getData();
+
+        try{
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+
+            bmpNitrogen5 = cropImage(bf);
+
+            imgNitrogen5.setImageBitmap(bmpNitrogen5);
+
+            my.proses(getRGB(bmpNitrogen5));
+
+            lblLevelImg5.setText(my.getResultLevel());
+
+            level5 = Integer.parseInt(my.getResultLevel());
+
+            imgStatus5 = true;
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void previewImageNitrogen12(Intent data){
+        Uri imgUri = data.getData();
+
+        try{
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+
+            bmpNitrogen6 = cropImage(bf);
+
+            imgNitrogen6.setImageBitmap(bmpNitrogen6);
+
+            my.proses(getRGB(bmpNitrogen6));
+
+            lblLevelImg6.setText(my.getResultLevel());
+
+            level6 = Integer.parseInt(my.getResultLevel());
+
+            imgStatus6 = true;
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private Bitmap cropImage(Bitmap srcBmp) {
+
+        Bitmap imgSrc;
+
         if (srcBmp.getWidth() >= srcBmp.getHeight()) {
 
             imgSrc = Bitmap.createBitmap(
@@ -468,6 +692,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
                     srcBmp.getWidth()
             );
         }
+        return imgSrc;
     }
 
     private int[] getRGB(Bitmap img) {
@@ -497,5 +722,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         //Toast.makeText(this, "R = " + red + "; G = " + green + "; B = " + blue, Toast.LENGTH_LONG).show();
         // Toast.makeText(this, rgbHex, Toast.LENGTH_LONG).show();
     }
+
+
 
 }

@@ -109,7 +109,10 @@ public class MyAlgorithm {
             //get classes of k nearest dataset (level names) from the list into an array
             ss[x] = resultList.get(x).levelName;
         }
-        resultLevel = findMajorityClass(ss);
+        resultLevel = String.valueOf(findMajorityClass(ss).charAt(6));
+
+
+
         //System.out.println("Class of new instance is: "+majClass);
 
     }
