@@ -10,13 +10,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            android:src="@drawable/bg_sawah"
-            />
+            android:src="@drawable/bg_sawah" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -43,7 +44,7 @@
                     android:text="Gambar Sampel"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -89,13 +90,12 @@
 
                     <TextView
                         android:id="@+id/lblLevelImg1"
-                        app:layout_widthPercent="25%"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imgNitrogen1"
                         android:layout_marginTop="5dp"
                         android:textAlignment="center"
                         android:textColor="@color/colorRed"
-                        />
+                        app:layout_widthPercent="25%" />
 
                     <ImageView
                         android:id="@+id/imgNitrogen2"
@@ -112,15 +112,14 @@
 
                     <TextView
                         android:id="@+id/lblLevelImg2"
-                        app:layout_widthPercent="25%"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imgNitrogen2"
-                        android:layout_toRightOf="@id/lblLevelImg1"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/lblLevelImg1"
                         android:textAlignment="center"
                         android:textColor="@color/colorRed"
-                        />
+                        app:layout_widthPercent="25%" />
 
                     <ImageView
                         android:id="@+id/imgNitrogen3"
@@ -137,15 +136,14 @@
 
                     <TextView
                         android:id="@+id/lblLevelImg3"
-                        app:layout_widthPercent="25%"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imgNitrogen3"
-                        android:layout_toRightOf="@id/lblLevelImg2"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/lblLevelImg2"
                         android:textAlignment="center"
                         android:textColor="@color/colorRed"
-                        />
+                        app:layout_widthPercent="25%" />
 
 
                 </android.support.percent.PercentRelativeLayout>
@@ -171,13 +169,12 @@
 
                     <TextView
                         android:id="@+id/lblLevelImg4"
-                        app:layout_widthPercent="25%"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imgNitrogen4"
                         android:layout_marginTop="5dp"
                         android:textAlignment="center"
                         android:textColor="@color/colorRed"
-                        />
+                        app:layout_widthPercent="25%" />
 
                     <ImageView
                         android:id="@+id/imgNitrogen5"
@@ -194,15 +191,14 @@
 
                     <TextView
                         android:id="@+id/lblLevelImg5"
-                        app:layout_widthPercent="25%"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imgNitrogen5"
-                        android:layout_toRightOf="@id/lblLevelImg4"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/lblLevelImg4"
                         android:textAlignment="center"
                         android:textColor="@color/colorRed"
-                        />
+                        app:layout_widthPercent="25%" />
 
                     <ImageView
                         android:id="@+id/imgNitrogen6"
@@ -219,15 +215,14 @@
 
                     <TextView
                         android:id="@+id/lblLevelImg6"
-                        app:layout_widthPercent="25%"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imgNitrogen6"
-                        android:layout_toRightOf="@id/lblLevelImg5"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/lblLevelImg5"
                         android:textAlignment="center"
                         android:textColor="@color/colorRed"
-                        />
+                        app:layout_widthPercent="25%" />
 
 
                 </android.support.percent.PercentRelativeLayout>
@@ -249,7 +244,7 @@
                     android:text="Target Produksi"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
@@ -277,7 +272,8 @@
 
                 <RadioGroup
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/limaTon"
@@ -289,25 +285,21 @@
                         android:id="@+id/enamTon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/limaTon"
                         android:text="6 ton/ha" />
 
                     <RadioButton
                         android:id="@+id/tujuhTon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/enamTon"
                         android:text="7 ton/ha" />
 
                     <RadioButton
                         android:id="@+id/delapanTon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/tujuhTon"
                         android:text="8 ton/ha" />
 
                 </RadioGroup>
-
 
 
             </RelativeLayout>
@@ -320,6 +312,46 @@
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:background="@color/colorRed" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/frameAnalisis"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/line_bg"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/frameAnalisis"
+                    android:layout_marginTop="-8dp"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorBg"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Hasil Analisis"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
