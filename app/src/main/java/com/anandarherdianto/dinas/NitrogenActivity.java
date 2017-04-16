@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -43,8 +44,6 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     private boolean imgStatus1, imgStatus2, imgStatus3,
             imgStatus4, imgStatus5, imgStatus6 = false;
 
-    private int level1, level2, level3,
-            level4, level5, level6;
 
     //From Camera
     static final int REQUEST_IMG_NITROGEN1 = 101;
@@ -166,8 +165,8 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         btnProses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if (imgStatus1 //&& imgStatus2 && imgStatus3 && imgStatus4 && imgStatus5
-                       // && imgStatus6) {
+                if (imgStatus1 && imgStatus2 && imgStatus3 && imgStatus4 && imgStatus5
+                        && imgStatus6) {
 
                     nr.process();
                     lblLevelRata.setText(nr.getAvgLevel());
@@ -189,11 +188,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
 
 
-               // } else {
+                } else {
                     Toast.makeText(getApplicationContext(),
                             "Ambil gambar sampel terlebih dahulu!", Toast.LENGTH_SHORT)
                             .show();
-               // }
+                }
             }
         });
 
@@ -409,6 +408,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
         } else if (resultCode == RESULT_CANCELED) {
             //cancel by user
+            Log.d("TAG", "Canceled by user");
         } else {
             // failed to capture image
             Toast.makeText(getApplicationContext(),
@@ -725,6 +725,8 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         long blue = (blueColors / pixelCount);
 
         String rgbHex = String.format("%02x%02x%02x", red, green, blue).toUpperCase();
+
+        Log.d("TAG_RGB", rgbHex);
 
         return new int[]{(int) red, (int) green, (int) blue};
 
