@@ -421,7 +421,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     private void previewImageNitrogen1() {
         try {
 
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri1.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri1.toString(), "imgNitrogen1"));
 
             bmpNitrogen1 = cropImage(bf);
 
@@ -441,7 +441,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen2() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri2.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri2.toString(), "imgNitrogen2"));
 
             bmpNitrogen2 = cropImage(bf);
 
@@ -461,7 +461,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen3() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri3.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri3.toString(), "imgNitrogen3"));
 
             bmpNitrogen3 = cropImage(bf);
 
@@ -481,7 +481,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen4() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri4.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri4.toString(), "imgNitrogen4"));
 
             bmpNitrogen4 = cropImage(bf);
 
@@ -501,7 +501,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen5() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri5.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri5.toString(), "imgNitrogen5"));
 
             bmpNitrogen5 = cropImage(bf);
 
@@ -521,7 +521,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen6() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri6.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri6.toString(), "imgNitrogen6"));
 
             bmpNitrogen6 = cropImage(bf);
 
@@ -543,7 +543,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try{
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen1"));
 
             bmpNitrogen1 = cropImage(bf);
 
@@ -566,7 +566,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try{
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen2"));
 
             bmpNitrogen2 = cropImage(bf);
 
@@ -589,7 +589,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try{
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen3"));
 
             bmpNitrogen3 = cropImage(bf);
 
@@ -612,7 +612,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try{
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen4"));
 
             bmpNitrogen4 = cropImage(bf);
 
@@ -635,7 +635,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try{
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen5"));
 
             bmpNitrogen5 = cropImage(bf);
 
@@ -658,7 +658,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try{
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString()));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen6"));
 
             bmpNitrogen6 = cropImage(bf);
 

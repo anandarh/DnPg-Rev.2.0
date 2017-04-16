@@ -23,7 +23,12 @@ import java.io.IOException;
  */
 
 public class CompressImage {
-    public String compressImage(Context context, String imageUri) {
+
+    String imgName;
+
+    public String compressImage(Context context, String imageUri, String imgName) {
+
+        this.imgName = imgName;
 
         String filePath = getRealPathFromURI(context, imageUri);
         Bitmap scaledBitmap = null;
@@ -144,11 +149,11 @@ public class CompressImage {
 
     public String getFilename() {
         String extr = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-        File file = new File(extr + "/Matur");
+        File file = new File(extr + "/Dinas");
         if (!file.exists()) {
             file.mkdirs();
         }
-        String uriSting = (file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg");
+        String uriSting = (file.getAbsolutePath() + "/" + imgName + ".jpg");
         return uriSting;
 
     }
