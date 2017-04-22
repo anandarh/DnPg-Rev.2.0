@@ -29,7 +29,7 @@ public class MyAlgorithm {
     private static int[][] dataset = {
 
             // Level 2
-            {103, 121, 24},
+            {116, 137, 36},
             {111, 166, 47},
             {101, 124, 21},
             {120, 159, 84},
@@ -52,9 +52,9 @@ public class MyAlgorithm {
             //Level 5
             {32, 42, 23},
             {44, 85, 43},
-            {55, 89, 38},
+            {31, 70, 12},
             {57, 96, 31},
-            {54, 96, 28},
+            {34, 67, 0},
     };
 
     public void proses(int[] rgbFromImage){
