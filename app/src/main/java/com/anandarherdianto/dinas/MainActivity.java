@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, NitrogenActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_riwayat) {
-
+            Intent intent = new Intent(this, History.class);
+            startActivity(intent);
         } else if (id == R.id.nav_akun) {
 
         } else if (id == R.id.nav_bantuan) {
