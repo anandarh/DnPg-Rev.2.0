@@ -229,7 +229,9 @@
                             android:button="@null"
                             android:drawableTop="@android:drawable/btn_radio"
                             android:gravity="center"
-                            android:text="5 ton/ha" />
+                            android:text="5 ton/ha"
+                            android:onClick="pilihTargetProduksiClicked"
+                            android:checked="true"/>
 
                         <RadioButton
                             android:id="@+id/enamTon"
@@ -239,7 +241,8 @@
                             android:button="@null"
                             android:drawableTop="@android:drawable/btn_radio"
                             android:gravity="center"
-                            android:text="6 ton/ha" />
+                            android:text="6 ton/ha"
+                            android:onClick="pilihTargetProduksiClicked"/>
 
                         <RadioButton
                             android:id="@+id/tujuhTon"
@@ -249,7 +252,8 @@
                             android:button="@null"
                             android:drawableTop="@android:drawable/btn_radio"
                             android:gravity="center"
-                            android:text="7 ton/ha" />
+                            android:text="7 ton/ha"
+                            android:onClick="pilihTargetProduksiClicked"/>
 
                         <RadioButton
                             android:id="@+id/delapanTon"
@@ -259,7 +263,8 @@
                             android:button="@null"
                             android:drawableTop="@android:drawable/btn_radio"
                             android:gravity="center"
-                            android:text="8 ton/ha" />
+                            android:text="8 ton/ha"
+                            android:onClick="pilihTargetProduksiClicked"/>
 
                     </RadioGroup>
 
@@ -506,6 +511,62 @@
                                 android:textColor="@color/colorWhite"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
+
+
+                            <TextView
+                                android:id="@+id/lblRUrea"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/frmRes1"
+                                android:layout_toRightOf="@id/lblLevelRata"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginLeft="15dp"
+                                android:gravity="center"
+                                android:text="Takaran Urea"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/black"/>
+
+
+                            <RelativeLayout
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/lblRUrea"
+                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@id/lblLevelRata"
+                                android:gravity="center"
+                                >
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="60dp"
+                                    android:background="@drawable/square_num_bg">
+
+                                    <TextView
+                                        android:id="@+id/lblRekUrea"
+                                        android:layout_width="50dp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_vertical|right"
+                                        android:padding="5dp"
+                                        android:text="0"
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="22sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_toRightOf="@id/lblRekUrea"
+                                        android:text="Kg/Ha"
+                                        android:textColor="@color/colorWhite"
+                                        android:gravity="center"
+                                        android:paddingTop="5dp"
+                                        android:paddingRight="5dp"/>
+
+                                </RelativeLayout>
+
+
+                            </RelativeLayout>
+
 
 
                         </RelativeLayout>

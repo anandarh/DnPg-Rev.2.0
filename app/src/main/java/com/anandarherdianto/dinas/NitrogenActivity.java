@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,8 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             imgNitrogen4, imgNitrogen5, imgNitrogen6;
 
     private TextView lblLevelImg1, lblLevelImg2, lblLevelImg3,
-            lblLevelImg4, lblLevelImg5, lblLevelImg6, lblLevelRata;
+            lblLevelImg4, lblLevelImg5, lblLevelImg6, lblLevelRata,
+            lblRekUrea;
 
     private Bitmap bmpNitrogen1, bmpNitrogen2, bmpNitrogen3,
             bmpNitrogen4, bmpNitrogen5, bmpNitrogen6;
@@ -74,8 +76,6 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     private ScrollView sc;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +97,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         lblLevelImg5 = (TextView) findViewById(R.id.lblLevelImg5);
         lblLevelImg6 = (TextView) findViewById(R.id.lblLevelImg6);
         lblLevelRata = (TextView) findViewById(R.id.lblLevelRata);
+        lblRekUrea   = (TextView) findViewById(R.id.lblRekUrea);
 
         frmResult = findViewById(R.id.frmResult);
 
@@ -171,21 +172,21 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
                     nr.process();
                     lblLevelRata.setText(nr.getAvgLevel());
 
+                    lblRekUrea.setText(String.valueOf(nr.getnRecommend()));
+
                     frmResult.setVisibility(View.VISIBLE);
                     frmResult.setAlpha(0.0f);
                     frmResult.setScaleY(0.0f);
 
                     frmResult.animate().scaleY(1.0f).alpha(1.0f).setDuration(1000);
 
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Do something after 100ms
-                        sc.fullScroll(ScrollView.FOCUS_DOWN);
-                    }
-                }, 300);
-
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            sc.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    }, 300);
 
 
                 } else {
@@ -249,39 +250,65 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         startActivityForResult(intent, REQUEST_IMG_NITROGEN6);
     }
 
-    public void gallery1(){
+    public void gallery1() {
         Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(iPicker, REQUEST_IMG_NITROGEN7);
     }
 
-    public void gallery2(){
+    public void gallery2() {
         Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(iPicker, REQUEST_IMG_NITROGEN8);
     }
 
-    public void gallery3(){
+    public void gallery3() {
         Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(iPicker, REQUEST_IMG_NITROGEN9);
     }
 
-    public void gallery4(){
+    public void gallery4() {
         Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(iPicker, REQUEST_IMG_NITROGEN10);
     }
 
-    public void gallery5(){
+    public void gallery5() {
         Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(iPicker, REQUEST_IMG_NITROGEN11);
     }
 
-    public void gallery6(){
+    public void gallery6() {
         Intent iPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(iPicker, REQUEST_IMG_NITROGEN12);
     }
 
+    public void pilihTargetProduksiClicked(View view) {
+
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.limaTon:
+                if (checked)
+                    nr.setJmlTargetProduksi(5);
+                break;
+            case R.id.enamTon:
+                if (checked)
+                    nr.setJmlTargetProduksi(6);
+                break;
+            case R.id.tujuhTon:
+                if (checked)
+                    nr.setJmlTargetProduksi(7);
+                break;
+            case R.id.delapanTon:
+                if (checked)
+                    nr.setJmlTargetProduksi(8);
+                break;
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
                 return true;
@@ -539,10 +566,10 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         }
     }
 
-    private void previewImageNitrogen7(Intent data){
+    private void previewImageNitrogen7(Intent data) {
         Uri imgUri = data.getData();
 
-        try{
+        try {
             Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen1"));
 
             bmpNitrogen1 = cropImage(bf);
@@ -556,16 +583,16 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             nr.setLevel1(Integer.parseInt(my.getResultLevel()));
 
             imgStatus1 = true;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void previewImageNitrogen8(Intent data){
+    private void previewImageNitrogen8(Intent data) {
         Uri imgUri = data.getData();
 
-        try{
+        try {
             Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen2"));
 
             bmpNitrogen2 = cropImage(bf);
@@ -579,16 +606,16 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             nr.setLevel2(Integer.parseInt(my.getResultLevel()));
 
             imgStatus2 = true;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void previewImageNitrogen9(Intent data){
+    private void previewImageNitrogen9(Intent data) {
         Uri imgUri = data.getData();
 
-        try{
+        try {
             Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen3"));
 
             bmpNitrogen3 = cropImage(bf);
@@ -602,16 +629,16 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             nr.setLevel3(Integer.parseInt(my.getResultLevel()));
 
             imgStatus3 = true;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void previewImageNitrogen10(Intent data){
+    private void previewImageNitrogen10(Intent data) {
         Uri imgUri = data.getData();
 
-        try{
+        try {
             Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen4"));
 
             bmpNitrogen4 = cropImage(bf);
@@ -625,16 +652,16 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             nr.setLevel4(Integer.parseInt(my.getResultLevel()));
 
             imgStatus4 = true;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void previewImageNitrogen11(Intent data){
+    private void previewImageNitrogen11(Intent data) {
         Uri imgUri = data.getData();
 
-        try{
+        try {
             Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen5"));
 
             bmpNitrogen5 = cropImage(bf);
@@ -648,16 +675,16 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             nr.setLevel5(Integer.parseInt(my.getResultLevel()));
 
             imgStatus5 = true;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void previewImageNitrogen12(Intent data){
+    private void previewImageNitrogen12(Intent data) {
         Uri imgUri = data.getData();
 
-        try{
+        try {
             Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen6"));
 
             bmpNitrogen6 = cropImage(bf);
@@ -671,7 +698,7 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
             nr.setLevel6(Integer.parseInt(my.getResultLevel()));
 
             imgStatus6 = true;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Toast.makeText(this, "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_LONG).show();
         }
@@ -733,7 +760,6 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         //Toast.makeText(this, "R = " + red + "; G = " + green + "; B = " + blue, Toast.LENGTH_LONG).show();
         // Toast.makeText(this, rgbHex, Toast.LENGTH_LONG).show();
     }
-
 
 
 }
