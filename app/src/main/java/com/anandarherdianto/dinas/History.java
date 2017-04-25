@@ -13,9 +13,11 @@ import com.anandarherdianto.dinas.helper.ListAdapterHistory;
 import com.anandarherdianto.dinas.model.HistoryModel;
 import com.anandarherdianto.dinas.model.LHistoryModel;
 import com.anandarherdianto.dinas.util.DatabaseHandler;
-import com.anandarherdianto.dinas.util.DetailHistoryActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class History extends AppCompatActivity {
@@ -57,6 +59,8 @@ public class History extends AppCompatActivity {
             Log.d("Name: ", log);
 
         }
+
+        Collections.sort(history);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

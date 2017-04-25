@@ -28,7 +28,7 @@
         </activity>
         <activity android:name=".NitrogenActivity" />
         <activity android:name=".History" />
-        <activity android:name=".util.DetailHistoryActivity"></activity>
+        <activity android:name=".DetailHistoryActivity"></activity>
     </application>
 
 </manifest>

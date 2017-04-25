@@ -1,4 +1,4 @@
-package com.anandarherdianto.dinas.util;
+package com.anandarherdianto.dinas;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.anandarherdianto.dinas.R;
 import com.anandarherdianto.dinas.model.HistoryModel;
+import com.anandarherdianto.dinas.util.DatabaseHandler;
 
 public class DetailHistoryActivity extends AppCompatActivity {
 

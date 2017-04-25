@@ -83,7 +83,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     // Getting single history
-    HistoryModel getHistory(int id){
+    public HistoryModel getHistory(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_HISTORY, new String[] { "history_id",
