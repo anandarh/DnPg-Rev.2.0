@@ -73,6 +73,18 @@ public class NitrogenImageDialogBox extends DialogFragment {
                 } else if(code == "get6") {
                     mListener.camera6();
                     dialog.dismiss();
+                } else if(code == "get7") {
+                    mListener.camera7();
+                    dialog.dismiss();
+                } else if(code == "get8") {
+                    mListener.camera8();
+                    dialog.dismiss();
+                } else if(code == "get9") {
+                    mListener.camera9();
+                    dialog.dismiss();
+                } else if(code == "get10") {
+                    mListener.camera10();
+                    dialog.dismiss();
                 }
             }
         });
@@ -98,6 +110,18 @@ public class NitrogenImageDialogBox extends DialogFragment {
                 } else if(code == "get6") {
                     mListener.gallery6();
                     dialog.dismiss();
+                } else if(code == "get7") {
+                    mListener.gallery7();
+                    dialog.dismiss();
+                } else if(code == "get8") {
+                    mListener.gallery8();
+                    dialog.dismiss();
+                } else if(code == "get9") {
+                    mListener.gallery9();
+                    dialog.dismiss();
+                } else if(code == "get10") {
+                    mListener.gallery10();
+                    dialog.dismiss();
                 }
             }
         });
@@ -113,12 +137,20 @@ public class NitrogenImageDialogBox extends DialogFragment {
         void camera4();
         void camera5();
         void camera6();
+        void camera7();
+        void camera8();
+        void camera9();
+        void camera10();
         void gallery1();
         void gallery2();
         void gallery3();
         void gallery4();
         void gallery5();
         void gallery6();
+        void gallery7();
+        void gallery8();
+        void gallery9();
+        void gallery10();
     }
 
     @Override

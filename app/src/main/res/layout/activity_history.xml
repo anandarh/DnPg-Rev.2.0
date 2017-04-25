@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#09a300"
+    android:paddingBottom="5dp"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="1dp"
     tools:context="com.anandarherdianto.dinas.History">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:paddingTop="5dp"
+        android:paddingBottom="3dp">
+
+        <ListView
+            android:id="@+id/listHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/list_divider"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/list_row_selector" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -8,8 +8,8 @@ import java.text.DecimalFormat;
 
 public class NRecommendation {
 
-    private int level1, level2, level3;
-    private int level4, level5, level6;
+    private int level1, level2, level3, level4, level5,
+            level6, level7, level8, level9, level10;
     private int jmlTargetProduksi;
     private String avgLevel;
     private int nRecommend;
@@ -21,7 +21,7 @@ public class NRecommendation {
     public void process(){
         DecimalFormat oneDigit = new DecimalFormat("#.0");
         avgLevel = oneDigit.format((level1 + level2 + level3 +
-                level4 + level5 + level6)/6.0);
+                level4 + level5 + level6 + level7 + level8 + level9 + level10)/10.0);
 
         Double nAvg = Double.parseDouble(avgLevel.replace(",", "."));
 
@@ -84,6 +84,22 @@ public class NRecommendation {
 
     public void setLevel6(int level6) {
         this.level6 = level6;
+    }
+
+    public void setLevel7(int level7) {
+        this.level7 = level7;
+    }
+
+    public void setLevel8(int level8) {
+        this.level8 = level8;
+    }
+
+    public void setLevel9(int level9) {
+        this.level9 = level9;
+    }
+
+    public void setLevel10(int level10) {
+        this.level10 = level10;
     }
 
     public void setJmlTargetProduksi(int jmlTargetProduksi) {

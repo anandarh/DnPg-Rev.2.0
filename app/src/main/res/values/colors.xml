@@ -10,4 +10,10 @@
     //Warna Untuk FButton
     <color name="fbutton_default_color">#3eadeb</color>
     <color name="fbutton_default_shadow_color">#ff3493c8</color>
+
+    <color name="list_divider">#d9d9d9</color>
+    <color name="list_row_start_color">#ffffff</color>
+    <color name="list_row_end_color">#ffffff</color>
+    <color name="list_row_hover_start_color">#01dc31</color>
+    <color name="list_row_hover_end_color">#01bc2a</color>
 </resources>

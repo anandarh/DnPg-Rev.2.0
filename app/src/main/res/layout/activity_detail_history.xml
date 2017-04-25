@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    tools:context="com.anandarherdianto.dinas.util.DetailHistoryActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_sawah" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/frmResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:id="@+id/frameAnalisis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/line_bg"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/frmRes1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/lblS1"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:gravity="center"
+                                android:text="Sampel 1 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg1"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@id/lblS1"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS2"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS1"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 2 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg2"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg1"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS2"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS3"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS2"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 3 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg3"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg2"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS3"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS4"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS3"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 4 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg4"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg3"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS4"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS5"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS4"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 5 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg5"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg4"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS5"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="180dp"
+                            android:layout_marginLeft="13dp"
+                            android:layout_toRightOf="@id/frmRes1"
+                            android:background="@drawable/vertical_dash_line"
+                            android:layerType="software" />
+
+                        <RelativeLayout
+                            android:id="@+id/frmRes2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_toRightOf="@id/frmRes1">
+
+                            <TextView
+                                android:id="@+id/lblS6"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:gravity="center"
+                                android:text="Sampel 6 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg6"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@id/lblS6"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS7"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS6"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 7 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg7"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg6"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS7"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS8"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS7"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 8 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg8"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg7"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS8"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS9"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS8"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 9 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg9"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg8"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS9"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblS10"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblS9"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="Sampel 10 = "
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/lblLevelImg10"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@id/lblLevelImg9"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_toRightOf="@id/lblS10"
+                                android:background="@drawable/circle_num_bg"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="250dp"
+                            android:layout_height="15dp"
+                            android:layout_below="@id/frmRes1"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/horizontal_dash_line"
+                            android:layerType="software" />
+
+                        <TextView
+                            android:id="@+id/lblSRata"
+                            android:layout_width="90dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/frmRes1"
+                            android:layout_marginTop="25dp"
+                            android:gravity="center_vertical"
+                            android:text="Rata - Rata = "
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lblLevelRata"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/frmRes1"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_toRightOf="@id/lblSRata"
+                            android:background="@drawable/circle_num_bg"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="5.5"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lblRUrea"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/frmRes1"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_toRightOf="@id/lblLevelRata"
+                            android:gravity="center"
+                            android:text="Takaran Urea"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/lblRUrea"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toRightOf="@id/lblLevelRata"
+                            android:gravity="center">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="60dp"
+                                android:background="@drawable/square_num_bg">
+
+                                <TextView
+                                    android:id="@+id/lblRekUrea"
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical|right"
+                                    android:padding="5dp"
+                                    android:text="0"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_toRightOf="@id/lblRekUrea"
+                                    android:gravity="center"
+                                    android:paddingRight="5dp"
+                                    android:paddingTop="5dp"
+                                    android:text="Kg/Ha"
+                                    android:textColor="@color/colorWhite" />
+
+                            </RelativeLayout>
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/lblSRata">
+
+                            <TextView
+                                android:id="@+id/lblSTarget"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:text="Target"
+                                android:textColor="@android:color/black"
+                                android:textStyle="bold" />
+
+                            <RelativeLayout
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/lblSTarget"
+                                android:gravity="center">
+
+
+                                    <TextView
+                                        android:id="@+id/lblTarget"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_vertical|right"
+                                        android:padding="5dp"
+                                        android:text="0"
+                                        android:textColor="#001829"
+                                        android:textSize="22sp"
+                                        android:textStyle="bold"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_alignParentStart="true" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_toRightOf="@id/lblTarget"
+                                        android:gravity="center"
+                                        android:paddingRight="5dp"
+                                        android:paddingTop="12dp"
+                                        android:text="Ton/Ha"
+                                        android:textColor="#001829" />
+
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/frameAnalisis"
+                    android:layout_marginTop="-8dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorBg"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Hasil Analisis"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/frmResult"
+                android:paddingBottom="30dp">
+
+                <LinearLayout
+                    android:id="@+id/frameCatatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/line_bg"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:id="@+id/tNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/frameCatatan"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="-8dp"
+                    android:background="@color/colorBg"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Catatan"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+                <com.anandarherdianto.dinas.util.FButton
+                    android:id="@+id/btnHistoryBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frameCatatan"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="20dp"
+                    android:drawableLeft="@drawable/ic_arrow_back_white_24dp"
+                    android:drawablePadding="10dp"
+                    android:minHeight="50dp"
+                    android:minWidth="250dp"
+                    android:paddingLeft="80dp"
+                    android:paddingRight="70dp"
+                    android:text="Kembali"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="0dp"
+                    app:shadowEnabled="true"
+                    app:shadowHeight="5dp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

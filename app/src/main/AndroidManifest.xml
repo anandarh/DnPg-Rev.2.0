@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".NitrogenActivity" />
-        <activity android:name=".History"></activity>
+        <activity android:name=".History" />
+        <activity android:name=".util.DetailHistoryActivity"></activity>
     </application>
 
 </manifest>

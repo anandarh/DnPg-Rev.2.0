@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_row_selector"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/lLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nilai Level : 2,7"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/lNote"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lLevel"
+        android:layout_marginTop="1dp"
+        android:text="Catatan : kertas"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:maxLines="3"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:id="@+id/lDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lNote"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="3dp"
+        android:layout_alignParentRight="true"
+        android:textColor="#3d3d3d"
+        android:text="2017-03-01 12:12:12"
+        android:textSize="11sp" />
+
+</RelativeLayout>
