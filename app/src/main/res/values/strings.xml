@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">Dinas</string>
+    <string name="app_name">Dinas Pangan App</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="nitrogen">Analisis</string>
+    <string name="history">Histori</string>
+    <string name="detail_history">Detail Histori</string>
 </resources>

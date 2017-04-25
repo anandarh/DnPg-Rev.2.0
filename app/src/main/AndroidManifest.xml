@@ -26,9 +26,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NitrogenActivity" />
-        <activity android:name=".History" />
-        <activity android:name=".DetailHistoryActivity"></activity>
+        <activity
+            android:name=".NitrogenActivity"
+            android:label="@string/nitrogen"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".History"
+            android:label="@string/history"/>
+        <activity
+            android:name=".DetailHistoryActivity"
+            android:label="@string/detail_history"/>
     </application>
 
 </manifest>
