@@ -1,4 +1,4 @@
-package com.anandarherdianto.dinas.util;
+package com.anandarherdianto.dinas.helper;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -1,4 +1,4 @@
-package com.anandarherdianto.dinas.util;
+package com.anandarherdianto.dinas.helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;

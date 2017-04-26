@@ -1,6 +1,8 @@
 package com.anandarherdianto.dinas;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,11 +17,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.anandarherdianto.dinas.util.DatabaseHandler;
+import com.anandarherdianto.dinas.util.GPSTracker;
 import com.anandarherdianto.dinas.util.SessionManager;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,11 +34,16 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RelativeLayout bg1, bg2, bg3, bg4;
+
     private int position;
+
+    private TextView hLocation;
 
     private SessionManager session;
 
     private DatabaseHandler db;
+
+    private GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +94,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        TextView hName = (TextView) header.findViewById(R.id.hName);
+        hLocation = (TextView) header.findViewById(R.id.hLocation);
+
+        hName.setText(name);
+
+        getGPS();
     }
 
     @Override
@@ -202,5 +222,43 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void getGPS(){
+        // create class object
+        gps = new GPSTracker(MainActivity.this);
+
+        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+
+        List<Address> addresses = null;
+
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
+
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude,1);
+            } catch (IOException ioException) {
+                // Catch network or other I/O problems.
+                //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
+            } catch (IllegalArgumentException illegalArgumentException) {
+                // Catch invalid latitude or longitude values.
+                //Toast.makeText(getApplicationContext(), "Error2", Toast.LENGTH_LONG).show();
+            }
+
+            if (addresses == null || addresses.size()  == 0) {
+                hLocation.setText("");
+            }else {
+                hLocation.setText(addresses.get(0).getLocality()+", "+addresses.get(0).getAdminArea());
+            }
+
+        }else{
+            hLocation.setText("");
+        }
+
+
+
     }
 }

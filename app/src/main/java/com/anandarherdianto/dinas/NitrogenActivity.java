@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -31,8 +30,8 @@ import com.anandarherdianto.dinas.helper.NRecommendation;
 import com.anandarherdianto.dinas.model.HistoryModel;
 import com.anandarherdianto.dinas.util.CompressImage;
 import com.anandarherdianto.dinas.util.DatabaseHandler;
-import com.anandarherdianto.dinas.util.MyAlgorithm;
-import com.anandarherdianto.dinas.util.NitrogenImageDialogBox;
+import com.anandarherdianto.dinas.helper.MyAlgorithm;
+import com.anandarherdianto.dinas.helper.NitrogenImageDialogBox;
 
 import java.io.File;
 import java.text.DateFormat;
