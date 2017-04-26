@@ -16,6 +16,10 @@ import android.view.MenuItem;
 import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 
+import com.anandarherdianto.dinas.util.DatabaseHandler;
+import com.anandarherdianto.dinas.util.SessionManager;
+
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,6 +28,10 @@ public class MainActivity extends AppCompatActivity
 
     private RelativeLayout bg1, bg2, bg3, bg4;
     private int position;
+
+    private SessionManager session;
+
+    private DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +53,24 @@ public class MainActivity extends AppCompatActivity
         bg3.setVisibility(View.GONE);
         bg4.setVisibility(View.GONE);
 
-        Snackbar.make(view, "Selamat Bekerja", Snackbar.LENGTH_LONG)
+        // SqLite database handler
+        db = new DatabaseHandler(getApplicationContext());
+
+        // session manager
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn() && !session.isFingerLoggedin()) {
+            logoutUser();
+        }
+
+        // Fetching user details from database
+        HashMap<String, String> user = db.getUserDetails();
+        String name = user.get("name");
+
+        Snackbar.make(view, "Selamat Bekerja "+name, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
 
+        // Timer to adjust background image changes.
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new bgSlide(), 3000, 5000);
 
@@ -91,7 +114,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_bantuan) {
 
         } else if (id == R.id.nav_logout) {
-
+            logoutUser();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -99,6 +122,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+    // Handle background image animation
+    // The background image will alternate according to the time specified.
     public class bgSlide extends TimerTask{
 
         @Override
@@ -162,5 +188,19 @@ public class MainActivity extends AppCompatActivity
             });
 
         }
+    }
+
+    // Logging out the user. Will set isLoggedIn flag to false in shared
+    // preferences and clears the user data from user table in database
+    private void logoutUser(){
+        session.setLogin(false);
+        session.setFingerLogin(false);
+
+        db.deleteUser();
+
+        // Launching the login activity
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

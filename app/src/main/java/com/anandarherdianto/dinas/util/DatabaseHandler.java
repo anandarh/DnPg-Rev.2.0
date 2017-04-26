@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.anandarherdianto.dinas.model.HistoryModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,6 +19,8 @@ import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper{
 
+    private static final String TAG = "Database";
+
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
@@ -24,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "DinasPanganDB";
 
     // Table name
+    private static final String TABLE_USER = "tUser";
     private static final String TABLE_HISTORY = "tHistory";
 
 
@@ -34,6 +39,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        String CREATE_USER_TABLE = "CREATE TABLE "+TABLE_USER+" ( user_id INTEGER PRIMARY KEY, " +
+                "username TEXT NOT NULL, finger_id TEXT NULL, " +
+                "name TEXT NOT NULL, log_time TEXT NOT NULL)";
+        db.execSQL(CREATE_USER_TABLE);
+
         String CREATE_HISTORY_TABLE = "CREATE TABLE "+TABLE_HISTORY+" ( history_id INTEGER PRIMARY KEY, " +
                 "level1 INTEGER NOT NULL, level2 INTEGER NOT NULL, level3 INTEGER NOT NULL, " +
                 "level4 INTEGER NOT NULL, level5 INTEGER NOT NULL, level6 INTEGER NOT NULL, " +
@@ -41,13 +52,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 "level10 INTEGER NOT NULL, target INTEGER NOT NULL, avg_level text NOT NULL, " +
                 "n_dosage text NOT NULL, note text, date_check text NOT NULL )";
         db.execSQL(CREATE_HISTORY_TABLE);
+
+        Log.d(TAG, "Database tables created");
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER + "," + TABLE_HISTORY);
 
         // Create tables again
         onCreate(db);
@@ -57,6 +70,60 @@ public class DatabaseHandler extends SQLiteOpenHelper{
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
+
+    //User Table CRUD
+    //Inserting a user
+    public void addUser(String username, String finger_id, String name, String log){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("finger_id", finger_id);
+        values.put("name", name);
+        values.put("log_time", log);
+
+        // Inserting Row
+        db.insert(TABLE_USER, null, values);
+        db.close(); // Closing database connection
+
+        Log.d(TAG, "New user inserted into database");
+    }
+
+    //Getting user data
+    public HashMap<String, String> getUserDetails() {
+        HashMap<String, String> user = new HashMap<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_USER;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            user.put("username", cursor.getString(1));
+            user.put("name", cursor.getString(3));
+            user.put("log", cursor.getString(4));
+        }
+        cursor.close();
+        db.close();
+        // return user
+        Log.d(TAG, "Fetching user from database: " + user.toString());
+
+        return user;
+    }
+
+    //Deleting user data
+    public void deleteUser() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        db.delete(TABLE_USER, null, null);
+        db.close();
+
+        Log.d(TAG, "Deleted all user info from database");
+    }
+
+
+    //History Table CRUD
+    //Inserting a history
     public void addHistory(HistoryModel history){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -80,6 +147,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         // Inserting Row
         db.insert(TABLE_HISTORY, null, values);
         db.close(); // Closing database connection
+
+        Log.d(TAG, "New history inserted into database");
     }
 
     // Getting single history
@@ -114,12 +183,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 cursor.getString(15)
                 );
 
+        cursor.close();
+        db.close();
+
         return history;
     }
 
     //Getting all history
     public List<HistoryModel> getAllHistory() {
-        List<HistoryModel> historyList = new ArrayList<HistoryModel>();
+        List<HistoryModel> historyList = new ArrayList<>();
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_HISTORY;
@@ -153,7 +225,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             } while (cursor.moveToNext());
         }
 
-        // return contact list
+        cursor.close();
+        db.close();
+        // return history list
         return historyList;
     }
 
@@ -164,4 +238,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 new String[] { String.valueOf(id) });
         db.close();
     }
+
+
+
 }
