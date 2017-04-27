@@ -8,12 +8,12 @@ public class DocumentationAlbumModel {
 
     private String title;
     private int numOfImages;
-    private int thumbnail;
+    private String thumbnail;
 
     public DocumentationAlbumModel() {
     }
 
-    public DocumentationAlbumModel(String title, int numOfImages, int thumbnail) {
+    public DocumentationAlbumModel(String title, int numOfImages, String thumbnail) {
         this.title = title;
         this.numOfImages = numOfImages;
         this.thumbnail = thumbnail;
@@ -35,11 +35,11 @@ public class DocumentationAlbumModel {
         this.numOfImages = numOfImages;
     }
 
-    public int getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(int thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 }

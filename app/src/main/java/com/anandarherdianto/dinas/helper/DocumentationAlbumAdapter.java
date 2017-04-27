@@ -44,7 +44,7 @@ public class DocumentationAlbumAdapter extends RecyclerView.Adapter<Documentatio
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         DocumentationAlbumModel album = albumList.get(position);
         holder.title.setText(album.getTitle());
-        holder.count.setText(album.getNumOfImages() + " songs");
+        holder.count.setText(album.getNumOfImages() + " foto");
 
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);

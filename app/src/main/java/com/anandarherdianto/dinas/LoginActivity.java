@@ -159,15 +159,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Connection Error: " + ">>" + error.networkResponse.statusCode
-                        + ">>" + Arrays.toString(error.networkResponse.data)
-                        + ">>" + error.getCause()
-                        + ">>" + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        "Connection Error: " + ">>" + error.networkResponse.statusCode
-                                + ">>" + Arrays.toString(error.networkResponse.data)
-                                + ">>" + error.getCause()
-                                + ">>" +error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat menghubungi server!", Toast.LENGTH_LONG).show();
                 hideDialog();
             }
         }){

@@ -1,31 +1,48 @@
 package com.anandarherdianto.dinas;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.anandarherdianto.dinas.helper.DocumentationAlbumAdapter;
 import com.anandarherdianto.dinas.model.DocumentationAlbumModel;
+import com.anandarherdianto.dinas.util.CommunicationController;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.anandarherdianto.dinas.util.AppConfig.URL_ALBUM_DOCUMENTATION;
+import static java.sql.Types.NULL;
 
 public class DocumentationActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DocumentationAlbumAdapter adapter;
     private List<DocumentationAlbumModel> albumList;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +54,9 @@ public class DocumentationActivity extends AppCompatActivity {
         initCollapsingToolbar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
 
         albumList = new ArrayList<>();
         adapter = new DocumentationAlbumAdapter(this, albumList);
@@ -54,6 +74,16 @@ public class DocumentationActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -78,10 +108,12 @@ public class DocumentationActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(getString(R.string.app_name));
+                    collapsingToolbar.setTitle(getString(R.string.documentation_album));
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbar.setTitle(" ");
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     isShow = false;
                 }
             }
@@ -92,50 +124,61 @@ public class DocumentationActivity extends AppCompatActivity {
      * Adding few albums for testing
      */
     private void prepareAlbums() {
-        int[] covers = new int[]{
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test,
-                R.drawable.album_test};
 
-        DocumentationAlbumModel a = new DocumentationAlbumModel("True Romance", 13, covers[0]);
-        albumList.add(a);
+        String tag_string_req = "req_documentation";
 
-        a = new DocumentationAlbumModel("Xscpae", 8, covers[1]);
-        albumList.add(a);
+        pDialog.setMessage("Loading...");
+        showDialog();
 
-        a = new DocumentationAlbumModel("Maroon 5", 11, covers[2]);
-        albumList.add(a);
+        StringRequest documentationReq = new StringRequest(URL_ALBUM_DOCUMENTATION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Documentation : ", response.toString());
+                        hideDialog();
 
-        a = new DocumentationAlbumModel("Born to Die", 12, covers[3]);
-        albumList.add(a);
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            boolean error = jObj.getBoolean("error");
 
-        a = new DocumentationAlbumModel("Honeymoon", 14, covers[4]);
-        albumList.add(a);
+                            // Check for error node in json
+                            if (!error) {
+                                // Now store the user in SQLite
+                                JSONArray jArr = jObj.getJSONArray("documentation");
+                                for (int i = 0; i < jArr.length(); i++) {
+                                    JSONObject obj = jArr.getJSONObject(i);
+                                    DocumentationAlbumModel docModel = new DocumentationAlbumModel();
+                                    docModel.setTitle(obj.getString("village"));
+                                    docModel.setThumbnail(obj.getString("img_path"));
+                                    docModel.setNumOfImages(obj.getInt("sum_image"));
 
-        a = new DocumentationAlbumModel("I Need a Doctor", 1, covers[5]);
-        albumList.add(a);
+                                    albumList.add(docModel);
 
-        a = new DocumentationAlbumModel("Loud", 11, covers[6]);
-        albumList.add(a);
+                                }
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Error : Terjadi kesalahan!", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
 
-        a = new DocumentationAlbumModel("Legend", 14, covers[7]);
-        albumList.add(a);
+                        // notifying list adapter about data changes
+                        // so that it renders the list view with updated data
+                        adapter.notifyDataSetChanged();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat mengambil data!", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        });
 
-        a = new DocumentationAlbumModel("Hello", 11, covers[8]);
-        albumList.add(a);
+        // Adding request to request queue
+        CommunicationController.getInstance().addToRequestQueue(documentationReq, tag_string_req);
 
-        a = new DocumentationAlbumModel("Greatest Hits", 17, covers[9]);
-        albumList.add(a);
-
-        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -182,6 +225,16 @@ public class DocumentationActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 
 }

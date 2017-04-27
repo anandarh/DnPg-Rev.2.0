@@ -8,6 +8,7 @@
     <string name="nitrogen">Analisis</string>
     <string name="history">Histori</string>
     <string name="detail_history">Detail Histori</string>
+    <string name="documentation_album">Album Dokumentasi</string>
 
     <string name="action_add_favourite">Add to Favourites</string>
     <string name="action_upload">Unggah ke Server</string>
