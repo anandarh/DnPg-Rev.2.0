@@ -16,4 +16,7 @@
     <color name="list_row_end_color">#ffffff</color>
     <color name="list_row_hover_start_color">#01dc31</color>
     <color name="list_row_hover_end_color">#01bc2a</color>
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
 </resources>
