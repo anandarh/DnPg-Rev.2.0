@@ -8,10 +8,14 @@ public class AppConfig {
 
     //server user login url
     //login by username and password
-    public static String URL_LOGIN = "http://192.168.100.23/dinas_pangan/api/login";
+    public static String URL_LOGIN = "http://www.anandarh.my.id/api/login";
 
-    //documentation url
-    public static String URL_ALBUM_DOCUMENTATION = "http://192.168.100.23/dinas_pangan/api/documentation/album";
+    //documentation albums url
+    public static String URL_ALBUM_DOCUMENTATION = "http://www.anandarh.my.id/api/documentation/album";
+
+    //documentation list url
+    public static String URL_LIST_DOCUMENTATION = "http://www.anandarh.my.id/api/documentation";
+
 
 
 

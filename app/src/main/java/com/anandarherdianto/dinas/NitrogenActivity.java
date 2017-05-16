@@ -541,40 +541,46 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         String image_name9 = "imgNitrogen9.jpg";
         String image_name10 = "imgNitrogen10.jpg";
 
-        String extr = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+        String extr = Environment.getExternalStorageDirectory().toString();
+
         File mFolder = new File(extr + "/Dinas");
         if (!mFolder.exists()) {
             mFolder.mkdir();
         }
 
-        File file1 = new File(mFolder + File.separator + image_name1);
+        File folder = new File(mFolder + File.separator + "Nitrogen");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
+        File file1 = new File(folder + File.separator + image_name1);
         file_uri1 = Uri.fromFile(file1);
 
-        File file2 = new File(mFolder + File.separator + image_name2);
+        File file2 = new File(folder + File.separator + image_name2);
         file_uri2 = Uri.fromFile(file2);
 
-        File file3 = new File(mFolder + File.separator + image_name3);
+        File file3 = new File(folder + File.separator + image_name3);
         file_uri3 = Uri.fromFile(file3);
 
-        File file4 = new File(mFolder + File.separator + image_name4);
+        File file4 = new File(folder + File.separator + image_name4);
         file_uri4 = Uri.fromFile(file4);
 
-        File file5 = new File(mFolder + File.separator + image_name5);
+        File file5 = new File(folder + File.separator + image_name5);
         file_uri5 = Uri.fromFile(file5);
 
-        File file6 = new File(mFolder + File.separator + image_name6);
+        File file6 = new File(folder + File.separator + image_name6);
         file_uri6 = Uri.fromFile(file6);
 
-        File file7 = new File(mFolder + File.separator + image_name7);
+        File file7 = new File(folder + File.separator + image_name7);
         file_uri7 = Uri.fromFile(file7);
 
-        File file8 = new File(mFolder + File.separator + image_name8);
+        File file8 = new File(folder + File.separator + image_name8);
         file_uri8 = Uri.fromFile(file8);
 
-        File file9 = new File(mFolder + File.separator + image_name9);
+        File file9 = new File(folder + File.separator + image_name9);
         file_uri9 = Uri.fromFile(file9);
 
-        File file10 = new File(mFolder + File.separator + image_name10);
+        File file10 = new File(folder + File.separator + image_name10);
         file_uri10 = Uri.fromFile(file10);
     }
 

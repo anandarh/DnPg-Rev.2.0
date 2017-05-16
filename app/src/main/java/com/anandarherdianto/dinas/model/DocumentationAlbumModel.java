@@ -6,9 +6,8 @@ package com.anandarherdianto.dinas.model;
 
 public class DocumentationAlbumModel {
 
-    private String title;
-    private int numOfImages;
-    private String thumbnail;
+    private int doc_id, numOfImages, temp;
+    private String title, thumbnail, description, latitude, longitude, location, date, uploader;
 
     public DocumentationAlbumModel() {
     }
@@ -17,6 +16,14 @@ public class DocumentationAlbumModel {
         this.title = title;
         this.numOfImages = numOfImages;
         this.thumbnail = thumbnail;
+    }
+
+    public int getDoc_id() {
+        return doc_id;
+    }
+
+    public void setDoc_id(int doc_id) {
+        this.doc_id = doc_id;
     }
 
     public String getTitle() {
@@ -41,5 +48,61 @@ public class DocumentationAlbumModel {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public int getTemp() {
+        return temp;
+    }
+
+    public void setTemp(int temp) {
+        this.temp = temp;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
     }
 }

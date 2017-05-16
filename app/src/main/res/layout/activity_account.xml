@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    tools:context="com.anandarherdianto.dinas.AccountActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/album_test"
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="2dp"
+        />
+
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgProfile"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="Ananda R Herdianto"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:shadowColor="#010925"
+        android:shadowDx="1.5"
+        android:shadowDy="1.3"
+        android:shadowRadius="1.6"
+        android:textColor="@color/colorWhite"/>
+
+
+    <RelativeLayout
+        android:id="@+id/frmAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtUsername"
+        android:background="@drawable/square_border_white"
+        android:padding="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:id="@+id/txtOldPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:hint="Password Lama"
+            android:textColor="@color/colorWhite"
+            android:inputType="textPassword"/>
+
+        <EditText
+            android:id="@+id/txtNewPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtOldPassword"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:hint="Password Baru"
+            android:textColor="@color/colorWhite"
+            android:inputType="textPassword"/>
+
+        <EditText
+            android:id="@+id/txtCNewPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtNewPassword"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:hint="Konfirmasi Password"
+            android:textColor="@color/colorWhite"
+            android:inputType="textPassword"
+            android:layout_marginBottom="5dp"/>
+
+    </RelativeLayout>
+
+    <com.anandarherdianto.dinas.util.FButton
+        android:id="@+id/btnHistoryBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frmAccount"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:minHeight="50dp"
+        android:minWidth="250dp"
+        android:text="Simpan"
+        android:textColor="@android:color/white"
+        app:cornerRadius="0dp"
+        app:shadowEnabled="true"
+        app:shadowHeight="5dp" />
+
+
+</RelativeLayout>

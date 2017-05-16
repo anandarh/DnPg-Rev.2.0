@@ -148,12 +148,19 @@ public class CompressImage {
     }
 
     public String getFilename() {
-        String extr = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-        File file = new File(extr + "/Dinas");
-        if (!file.exists()) {
-            file.mkdirs();
+        String extr = Environment.getExternalStorageDirectory().toString();
+
+        File mFolder = new File(extr + "/Dinas");
+        if (!mFolder.exists()) {
+            mFolder.mkdirs();
         }
-        String uriSting = (file.getAbsolutePath() + "/" + imgName + ".jpg");
+
+        File folder = new File(mFolder + File.separator + "Nitrogen");
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
+        String uriSting = (folder.getAbsolutePath() + "/" + imgName + ".jpg");
         return uriSting;
 
     }

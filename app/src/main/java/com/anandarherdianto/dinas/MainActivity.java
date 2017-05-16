@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,11 +20,13 @@ import android.view.MenuItem;
 import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anandarherdianto.dinas.util.DatabaseHandler;
 import com.anandarherdianto.dinas.util.GPSTracker;
 import com.anandarherdianto.dinas.util.SessionManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +68,8 @@ public class MainActivity extends AppCompatActivity
         bg2.setVisibility(View.GONE);
         bg3.setVisibility(View.GONE);
         bg4.setVisibility(View.GONE);
+
+        createFolder();
 
         // SqLite database handler
         db = new DatabaseHandler(getApplicationContext());
@@ -259,7 +265,33 @@ public class MainActivity extends AppCompatActivity
             hLocation.setText("");
         }
 
+    }
 
+    private void createFolder(){
+        String nfile = ".nomedia";
+        String extr = Environment.getExternalStorageDirectory().toString();
+        File mFolder = new File(extr + "/Dinas");
+        if (!mFolder.exists()) {
+            mFolder.mkdir();
+        }
 
+        File folder1 = new File(mFolder + File.separator + "Documentation");
+        File folder2 = new File(mFolder + File.separator + "Nitrogen");
+
+        if (!folder1.exists()) {
+            folder1.mkdir();
+        }
+
+        if (!folder2.exists()) {
+            folder2.mkdir();
+        }
+
+        File nomedia = new File(folder2 + File.separator + nfile);
+        try {
+            nomedia.createNewFile();
+        } catch (IOException e) {
+            Log.e("Create", "Create file error : "+e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

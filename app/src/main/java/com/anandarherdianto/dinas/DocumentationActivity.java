@@ -1,11 +1,18 @@
 package com.anandarherdianto.dinas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.PersistableBundle;
+import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.anandarherdianto.dinas.helper.DocumentationAlbumAdapter;
+import com.anandarherdianto.dinas.helper.TouchListenerAlbum;
 import com.anandarherdianto.dinas.model.DocumentationAlbumModel;
 import com.anandarherdianto.dinas.util.CommunicationController;
 import com.android.volley.Response;
@@ -30,12 +38,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.anandarherdianto.dinas.util.AppConfig.URL_ALBUM_DOCUMENTATION;
-import static java.sql.Types.NULL;
 
 public class DocumentationActivity extends AppCompatActivity {
 
@@ -43,6 +53,10 @@ public class DocumentationActivity extends AppCompatActivity {
     private DocumentationAlbumAdapter adapter;
     private List<DocumentationAlbumModel> albumList;
     private ProgressDialog pDialog;
+    private FloatingActionButton fab;
+    private Uri file_uri;
+
+    static final int REQUEST_IMG_CAPTURE = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +68,8 @@ public class DocumentationActivity extends AppCompatActivity {
         initCollapsingToolbar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        fab = (FloatingActionButton) findViewById(R.id.addDoc);
+        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorWhite)));
 
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
@@ -66,6 +82,39 @@ public class DocumentationActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener(new TouchListenerAlbum(getApplicationContext(), recyclerView, new TouchListenerAlbum.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                DocumentationAlbumModel album = albumList.get(position);
+                //Toast.makeText(getApplicationContext(), album.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(DocumentationActivity.this, ListDocumentationActivity.class);
+                intent.putExtra("village",album.getTitle());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                getFileUri();
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
+                startActivityForResult(intent, REQUEST_IMG_CAPTURE);
+
+
+                //Intent i = new Intent(DocumentationActivity.this, AddDocumentationActivity.class);
+                //startActivity(i);
+
+            }
+        });
 
         prepareAlbums();
 
@@ -85,6 +134,73 @@ public class DocumentationActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+
+        // save file url in bundle as it will be null on screen orientation
+        // changes
+        outState.putParcelable("file_uri", file_uri);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // get the file url
+        file_uri = savedInstanceState.getParcelable("file_uri");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_IMG_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+
+                // successfully captured the image
+                // launching upload activity
+                launchUploadActivity();
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+                // user cancelled Image capture
+
+
+            } else {
+                // failed to capture image
+                Toast.makeText(getApplicationContext(),
+                        "Maaf! Terjadi kesalahan saat mengambil gambar.", Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+        }
+
+    }
+
+    private void launchUploadActivity(){
+        Intent i = new Intent(DocumentationActivity.this, AddDocumentationActivity.class);
+        i.putExtra("filePath", file_uri.getPath());
+        startActivity(i);
+    }
+
+
+    private void getFileUri() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+
+        String extr = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+        File mFolder = new File(extr + "/Dinas");
+        if (!mFolder.exists()) {
+            mFolder.mkdir();
+        }
+
+        File file = new File(mFolder + File.separator + "IMG_" + timeStamp + ".jpg");
+        file_uri = Uri.fromFile(file);
+    }
+
+
+
 
     /**
      * Initializing collapsing toolbar
@@ -121,7 +237,7 @@ public class DocumentationActivity extends AppCompatActivity {
     }
 
     /**
-     * Adding few albums for testing
+     * Adding albums data from server
      */
     private void prepareAlbums() {
 

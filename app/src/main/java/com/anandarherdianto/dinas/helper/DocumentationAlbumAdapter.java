@@ -49,12 +49,14 @@ public class DocumentationAlbumAdapter extends RecyclerView.Adapter<Documentatio
         // loading album cover using Glide library
         Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
 
+        /*
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPopupMenu(holder.overflow);
             }
         });
+        */
     }
 
     @Override
@@ -71,7 +73,7 @@ public class DocumentationAlbumAdapter extends RecyclerView.Adapter<Documentatio
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
+            //overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }
 
@@ -79,6 +81,7 @@ public class DocumentationAlbumAdapter extends RecyclerView.Adapter<Documentatio
     /**
      * Showing popup menu when tapping on 3 dots
      */
+    /*
     private void showPopupMenu(View view) {
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
@@ -87,10 +90,12 @@ public class DocumentationAlbumAdapter extends RecyclerView.Adapter<Documentatio
         popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
         popup.show();
     }
+    */
 
     /**
      * Click listener for popup menu items
      */
+    /*
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
         public MyMenuItemClickListener() {
@@ -110,6 +115,7 @@ public class DocumentationAlbumAdapter extends RecyclerView.Adapter<Documentatio
             return false;
         }
     }
+    */
 
 
 

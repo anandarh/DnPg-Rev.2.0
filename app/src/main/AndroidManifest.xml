@@ -23,7 +23,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NitrogenActivity"
             android:label="@string/nitrogen"
@@ -46,8 +46,15 @@
         </activity>
         <activity
             android:name=".DocumentationActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ListDocumentationActivity" />
+        <activity
+            android:name=".AddDocumentationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AccountActivity"
+            android:label="Akun"/>
     </application>
 
 </manifest>

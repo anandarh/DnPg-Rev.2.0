@@ -2,6 +2,7 @@ package com.anandarherdianto.dinas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,8 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -67,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Format Date
         df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
@@ -129,11 +133,10 @@ public class LoginActivity extends AppCompatActivity {
                         // Store the user to database
                         JSONObject user = jObj.getJSONObject("user");
                         String username = user.getString("username");
-                        String finger_id = user.getString("finger_id");
                         String name = user.getString("name");
 
                         // Inserting row in users table
-                        db.addUser(username, finger_id, name, log);
+                        db.addUser(username, name, log);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
@@ -190,6 +193,5 @@ public class LoginActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-
 
 }
