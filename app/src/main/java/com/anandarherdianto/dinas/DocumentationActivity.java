@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.location.Address;
+import android.location.Geocoder;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +32,8 @@ import com.anandarherdianto.dinas.helper.DocumentationAlbumAdapter;
 import com.anandarherdianto.dinas.helper.TouchListenerAlbum;
 import com.anandarherdianto.dinas.model.DocumentationAlbumModel;
 import com.anandarherdianto.dinas.util.CommunicationController;
+import com.anandarherdianto.dinas.util.DatabaseHandler;
+import com.anandarherdianto.dinas.util.GPSTracker;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -39,9 +44,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,6 +62,9 @@ public class DocumentationActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private FloatingActionButton fab;
     private Uri file_uri;
+    private DatabaseHandler db;
+    private String fileName, fullAddress, village, userId;
+    private double latitude, longitude;
 
     static final int REQUEST_IMG_CAPTURE = 111;
 
@@ -76,6 +86,13 @@ public class DocumentationActivity extends AppCompatActivity {
 
         albumList = new ArrayList<>();
         adapter = new DocumentationAlbumAdapter(this, albumList);
+
+        // SqLite database handler
+        db = new DatabaseHandler(getApplicationContext());
+
+        // Fetching user details from database
+        HashMap<String, String> user = db.getUserDetails();
+        userId = user.get("user_id");
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -103,26 +120,24 @@ public class DocumentationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 getFileUri();
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
                 startActivityForResult(intent, REQUEST_IMG_CAPTURE);
 
-
-                //Intent i = new Intent(DocumentationActivity.this, AddDocumentationActivity.class);
-                //startActivity(i);
-
             }
         });
-
-        prepareAlbums();
 
         try {
             Glide.with(this).load(R.drawable.bg_nav).into((ImageView) findViewById(R.id.backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        prepareAlbums();
+
+        getGPS();
+
     }
 
     @Override
@@ -159,8 +174,8 @@ public class DocumentationActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 // successfully captured the image
-                // launching upload activity
-                launchUploadActivity();
+                // launching add documentation activity
+                addDocumentationActivity();
 
             } else if (resultCode == RESULT_CANCELED) {
 
@@ -178,9 +193,15 @@ public class DocumentationActivity extends AppCompatActivity {
 
     }
 
-    private void launchUploadActivity(){
+    private void addDocumentationActivity(){
         Intent i = new Intent(DocumentationActivity.this, AddDocumentationActivity.class);
         i.putExtra("filePath", file_uri.getPath());
+        i.putExtra("fileName", fileName);
+        i.putExtra("latitude", String.valueOf(latitude));
+        i.putExtra("longitude", String.valueOf(longitude));
+        i.putExtra("location", fullAddress);
+        i.putExtra("village", village);
+        i.putExtra("user_id", userId);
         startActivity(i);
     }
 
@@ -189,17 +210,67 @@ public class DocumentationActivity extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(new Date());
 
-        String extr = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+        fileName = "IMG_"+timeStamp;
+
+        String extr = Environment.getExternalStorageDirectory().toString();
         File mFolder = new File(extr + "/Dinas");
         if (!mFolder.exists()) {
             mFolder.mkdir();
         }
 
-        File file = new File(mFolder + File.separator + "IMG_" + timeStamp + ".jpg");
+        File folder1 = new File(mFolder + File.separator + "Documentation");
+        if (!folder1.exists()) {
+            folder1.mkdir();
+        }
+
+        File file = new File(folder1 + File.separator + fileName + ".jpg");
         file_uri = Uri.fromFile(file);
+
     }
 
+    // Get Coordinate from GPS
+    private void getGPS() {
+        // call class object
+        GPSTracker gps = new GPSTracker(DocumentationActivity.this);
 
+        Geocoder geocoder = new Geocoder(DocumentationActivity.this, Locale.getDefault());
+
+        List<Address> addresses = null;
+
+        // check if GPS enabled
+        if (gps.canGetLocation()) {
+
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+
+            Log.d("Coordinate", "Latitude = " + latitude + " Longitude = " + longitude);
+
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            } catch (IOException ioException) {
+                // Catch network or other I/O problems.
+                //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
+            } catch (IllegalArgumentException illegalArgumentException) {
+                // Catch invalid latitude or longitude values.
+                //Toast.makeText(getApplicationContext(), "Error2", Toast.LENGTH_LONG).show();
+            }
+
+            if (addresses == null || addresses.size() == 0) {
+                fullAddress = "Tidak Diketahui";
+                village = "Tidak Diketahui";
+            } else {
+
+                fullAddress = addresses.get(0).getAddressLine(0) + " " + addresses.get(0).getAddressLine(1) + " Kec. " +
+                              addresses.get(0).getAddressLine(2);
+                village = addresses.get(0).getAddressLine(1);
+            }
+
+        } else {
+            fullAddress = "Tidak Diketahui";
+            village = "Tidak Diketahui";
+        }
+
+    }
 
 
     /**

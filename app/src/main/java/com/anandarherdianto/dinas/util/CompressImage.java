@@ -11,6 +11,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.File;
@@ -25,10 +26,12 @@ import java.io.IOException;
 public class CompressImage {
 
     String imgName;
+    Boolean nitrogen;
 
-    public String compressImage(Context context, String imageUri, String imgName) {
+    public String compressImage(Context context, String imageUri, String imgName, Boolean nitrogen) {
 
         this.imgName = imgName;
+        this.nitrogen = nitrogen;
 
         String filePath = getRealPathFromURI(context, imageUri);
         Bitmap scaledBitmap = null;
@@ -40,13 +43,23 @@ public class CompressImage {
         options.inJustDecodeBounds = true;
         Bitmap bmp = BitmapFactory.decodeFile(filePath, options);
 
+        float maxHeight;
+        float maxWidth;
+
+        if(nitrogen){
+          // 640x480
+            maxWidth = 640.0f;
+            maxHeight = 480.0f;
+        }else {
+          // 1280x768
+            maxWidth = 1280.0f;
+            maxHeight = 768.0f;
+        }
+
+
         int actualHeight = options.outHeight;
         int actualWidth = options.outWidth;
 
-//      max Height and width values of the compressed image is taken as 816x612
-
-        float maxHeight = 816.0f;
-        float maxWidth = 612.0f;
         float imgRatio = actualWidth / actualHeight;
         float maxRatio = maxWidth / maxHeight;
 
@@ -105,7 +118,7 @@ public class CompressImage {
         canvas.setMatrix(scaleMatrix);
         canvas.drawBitmap(bmp, middleX - bmp.getWidth() / 2, middleY - bmp.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
 
-//      check the rotation of the image and display it properly
+        //check the rotation of the image and display it properly
         ExifInterface exif;
         try {
             exif = new ExifInterface(filePath);
@@ -155,7 +168,13 @@ public class CompressImage {
             mFolder.mkdirs();
         }
 
-        File folder = new File(mFolder + File.separator + "Nitrogen");
+        File folder = null;
+        if(nitrogen) {
+            folder = new File(mFolder + File.separator + "Nitrogen");
+        }else {
+            folder = new File(mFolder + File.separator + "Documentation");
+        }
+
         if (!folder.exists()) {
             folder.mkdirs();
         }

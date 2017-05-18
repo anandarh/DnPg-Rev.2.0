@@ -8,116 +8,119 @@
     tools:context="com.anandarherdianto.dinas.AddDocumentationActivity">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
         <ImageView
             android:id="@+id/imgPreview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:scaleType="center"
-            android:src="@drawable/bg1" />
-
-
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_arrow_back_white_24dp" />
-
-        <RelativeLayout
-            android:id="@+id/frmInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingTop="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:gravity="right">
+            android:src="@drawable/bg1" />
 
-            <TextView
-                android:id="@+id/txtTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Suhu : 28"
-                android:textColor="@color/colorWhite" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txtLat"
-                android:layout_below="@id/txtTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lat : -6.101921"
-                android:textColor="@color/colorWhite" />
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back_white_24dp" />
 
-            <TextView
-                android:id="@+id/txtLong"
-                android:layout_below="@id/txtLat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Long : 108.101921"
-                android:textColor="@color/colorWhite" />
+    <RelativeLayout
+        android:id="@+id/frmInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:gravity="right"
+        android:paddingTop="5dp">
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/txtTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Suhu : 0"
+            android:textColor="@color/colorWhite" />
 
-        <RelativeLayout
-            android:id="@+id/frmInput"
+        <TextView
+            android:id="@+id/txtLat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtTemp"
+            android:text="Lat : -6.101921"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/txtLong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtLat"
+            android:text="Long : 108.101921"
+            android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/frmInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true">
+
+        <EditText
+            android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true">
+            android:background="#c3000000"
+            android:hint="Masukan judul..."
+            android:inputType="textPersonName"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="#737272" />
 
-            <EditText
-                android:id="@+id/txtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#c3000000"
-                android:hint="Masukan judul..."
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="#737272" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/txtTitle"
+            android:background="#fff" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/txtTitle"
-                android:background="#fff" />
+        <EditText
+            android:id="@+id/txtNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtTitle"
+            android:background="#c3000000"
+            android:hint="Masukan keterangan..."
+            android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:minLines="1"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:scrollbars="vertical"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="#737272" />
 
-            <EditText
-                android:id="@+id/txtNote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtTitle"
-                android:background="#c3000000"
-                android:hint="Masukan keterangan..."
-                android:inputType="textMultiLine"
-                android:minLines="1"
-                android:maxLines="6"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:scrollbars="vertical"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="#737272" />
+    </RelativeLayout>
 
-        </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/btnSend"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/frmInput"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="-27dp"
-            android:background="@drawable/circle_btn_bg"
-            android:src="@drawable/ic_check_24dp" />
+    <ImageButton
+        android:id="@+id/btnSend"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/frmInput"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-27dp"
+        android:background="@drawable/circle_btn_bg"
+        android:src="@drawable/ic_check_24dp" />
 
 
 </RelativeLayout>

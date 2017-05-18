@@ -34,6 +34,8 @@ import com.anandarherdianto.dinas.helper.MyAlgorithm;
 import com.anandarherdianto.dinas.helper.NitrogenImageDialogBox;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,9 +48,6 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     private TextView lblLevelImg1, lblLevelImg2, lblLevelImg3, lblLevelImg4, lblLevelImg5,
             lblLevelImg6, lblLevelImg7, lblLevelImg8, lblLevelImg9, lblLevelImg10,
             lblLevelRata, lblRekUrea;
-
-    private Bitmap bmpNitrogen1, bmpNitrogen2, bmpNitrogen3, bmpNitrogen4, bmpNitrogen5,
-            bmpNitrogen6, bmpNitrogen7, bmpNitrogen8, bmpNitrogen9, bmpNitrogen10;
 
     private Uri file_uri1, file_uri2, file_uri3, file_uri4, file_uri5,
             file_uri6, file_uri7, file_uri8, file_uri9, file_uri10;
@@ -683,13 +682,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     private void previewImageNitrogen1() {
         try {
 
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri1.toString(), "imgNitrogen1"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri1.toString(), "imgNitrogen1", true));
 
-            bmpNitrogen1 = cropImage(bf);
+            imgNitrogen1.setImageBitmap(cropImage(bf));
 
-            imgNitrogen1.setImageBitmap(bmpNitrogen1);
-
-            my.proses(getRGB(bmpNitrogen1));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg1.setText(my.getResultLevel());
 
@@ -703,13 +700,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen2() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri2.toString(), "imgNitrogen2"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri2.toString(), "imgNitrogen2", true));
 
-            bmpNitrogen2 = cropImage(bf);
+            imgNitrogen2.setImageBitmap(cropImage(bf));
 
-            imgNitrogen2.setImageBitmap(bmpNitrogen2);
-
-            my.proses(getRGB(bmpNitrogen2));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg2.setText(my.getResultLevel());
 
@@ -723,13 +718,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen3() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri3.toString(), "imgNitrogen3"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri3.toString(), "imgNitrogen3", true));
 
-            bmpNitrogen3 = cropImage(bf);
+            imgNitrogen3.setImageBitmap(cropImage(bf));
 
-            imgNitrogen3.setImageBitmap(bmpNitrogen3);
-
-            my.proses(getRGB(bmpNitrogen3));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg3.setText(my.getResultLevel());
 
@@ -743,13 +736,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen4() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri4.toString(), "imgNitrogen4"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri4.toString(), "imgNitrogen4", true));
 
-            bmpNitrogen4 = cropImage(bf);
+            imgNitrogen4.setImageBitmap(cropImage(bf));
 
-            imgNitrogen4.setImageBitmap(bmpNitrogen4);
-
-            my.proses(getRGB(bmpNitrogen4));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg4.setText(my.getResultLevel());
 
@@ -763,13 +754,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen5() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri5.toString(), "imgNitrogen5"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri5.toString(), "imgNitrogen5", true));
 
-            bmpNitrogen5 = cropImage(bf);
+            imgNitrogen5.setImageBitmap(cropImage(bf));
 
-            imgNitrogen5.setImageBitmap(bmpNitrogen5);
-
-            my.proses(getRGB(bmpNitrogen5));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg5.setText(my.getResultLevel());
 
@@ -783,13 +772,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen6() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri6.toString(), "imgNitrogen6"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri6.toString(), "imgNitrogen6", true));
 
-            bmpNitrogen6 = cropImage(bf);
+            imgNitrogen6.setImageBitmap(cropImage(bf));
 
-            imgNitrogen6.setImageBitmap(bmpNitrogen6);
-
-            my.proses(getRGB(bmpNitrogen6));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg6.setText(my.getResultLevel());
 
@@ -803,13 +790,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen13() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri7.toString(), "imgNitrogen7"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri7.toString(), "imgNitrogen7", true));
 
-            bmpNitrogen7 = cropImage(bf);
+            imgNitrogen7.setImageBitmap(cropImage(bf));
 
-            imgNitrogen7.setImageBitmap(bmpNitrogen7);
-
-            my.proses(getRGB(bmpNitrogen7));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg7.setText(my.getResultLevel());
 
@@ -823,13 +808,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen14() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri8.toString(), "imgNitrogen8"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri8.toString(), "imgNitrogen8", true));
 
-            bmpNitrogen8 = cropImage(bf);
+            imgNitrogen8.setImageBitmap(cropImage(bf));
 
-            imgNitrogen8.setImageBitmap(bmpNitrogen8);
-
-            my.proses(getRGB(bmpNitrogen8));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg8.setText(my.getResultLevel());
 
@@ -843,13 +826,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen15() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri9.toString(), "imgNitrogen9"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri9.toString(), "imgNitrogen9", true));
 
-            bmpNitrogen9 = cropImage(bf);
+            imgNitrogen9.setImageBitmap(cropImage(bf));
 
-            imgNitrogen9.setImageBitmap(bmpNitrogen9);
-
-            my.proses(getRGB(bmpNitrogen9));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg9.setText(my.getResultLevel());
 
@@ -863,13 +844,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
     private void previewImageNitrogen16() {
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri10.toString(), "imgNitrogen10"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, file_uri10.toString(), "imgNitrogen10", true));
 
-            bmpNitrogen10 = cropImage(bf);
+            imgNitrogen10.setImageBitmap(cropImage(bf));
 
-            imgNitrogen10.setImageBitmap(bmpNitrogen10);
-
-            my.proses(getRGB(bmpNitrogen10));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg10.setText(my.getResultLevel());
 
@@ -885,13 +864,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen1"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen1", true));
 
-            bmpNitrogen1 = cropImage(bf);
+            imgNitrogen1.setImageBitmap(cropImage(bf));
 
-            imgNitrogen1.setImageBitmap(bmpNitrogen1);
-
-            my.proses(getRGB(bmpNitrogen1));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg1.setText(my.getResultLevel());
 
@@ -908,13 +885,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen2"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen2", true));
 
-            bmpNitrogen2 = cropImage(bf);
+            imgNitrogen2.setImageBitmap(cropImage(bf));
 
-            imgNitrogen2.setImageBitmap(bmpNitrogen2);
-
-            my.proses(getRGB(bmpNitrogen2));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg2.setText(my.getResultLevel());
 
@@ -931,13 +906,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen3"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen3", true));
 
-            bmpNitrogen3 = cropImage(bf);
+            imgNitrogen3.setImageBitmap(cropImage(bf));
 
-            imgNitrogen3.setImageBitmap(bmpNitrogen3);
-
-            my.proses(getRGB(bmpNitrogen3));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg3.setText(my.getResultLevel());
 
@@ -954,13 +927,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen4"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen4", true));
 
-            bmpNitrogen4 = cropImage(bf);
+            imgNitrogen4.setImageBitmap(cropImage(bf));
 
-            imgNitrogen4.setImageBitmap(bmpNitrogen4);
-
-            my.proses(getRGB(bmpNitrogen4));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg4.setText(my.getResultLevel());
 
@@ -977,13 +948,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen5"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen6", true));
 
-            bmpNitrogen5 = cropImage(bf);
+            imgNitrogen5.setImageBitmap(cropImage(bf));
 
-            imgNitrogen5.setImageBitmap(bmpNitrogen5);
-
-            my.proses(getRGB(bmpNitrogen5));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg5.setText(my.getResultLevel());
 
@@ -1000,13 +969,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen6"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen6", true));
 
-            bmpNitrogen6 = cropImage(bf);
+            imgNitrogen6.setImageBitmap(cropImage(bf));
 
-            imgNitrogen6.setImageBitmap(bmpNitrogen6);
-
-            my.proses(getRGB(bmpNitrogen6));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg6.setText(my.getResultLevel());
 
@@ -1023,13 +990,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen7"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen7", true));
 
-            bmpNitrogen7 = cropImage(bf);
+            imgNitrogen7.setImageBitmap(cropImage(bf));
 
-            imgNitrogen7.setImageBitmap(bmpNitrogen7);
-
-            my.proses(getRGB(bmpNitrogen7));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg7.setText(my.getResultLevel());
 
@@ -1046,13 +1011,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen8"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen8", true));
 
-            bmpNitrogen8 = cropImage(bf);
+            imgNitrogen8.setImageBitmap(cropImage(bf));
 
-            imgNitrogen8.setImageBitmap(bmpNitrogen8);
-
-            my.proses(getRGB(bmpNitrogen8));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg8.setText(my.getResultLevel());
 
@@ -1069,13 +1032,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen9"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen9", true));
 
-            bmpNitrogen9 = cropImage(bf);
+            imgNitrogen9.setImageBitmap(cropImage(bf));
 
-            imgNitrogen9.setImageBitmap(bmpNitrogen9);
-
-            my.proses(getRGB(bmpNitrogen9));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg9.setText(my.getResultLevel());
 
@@ -1092,13 +1053,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         Uri imgUri = data.getData();
 
         try {
-            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen10"));
+            Bitmap bf = BitmapFactory.decodeFile(ci.compressImage(this, imgUri.toString(), "imgNitrogen10", true));
 
-            bmpNitrogen10 = cropImage(bf);
+            imgNitrogen10.setImageBitmap(cropImage(bf));
 
-            imgNitrogen10.setImageBitmap(bmpNitrogen10);
-
-            my.proses(getRGB(bmpNitrogen10));
+            my.proses(getRGB(cropImage(bf)));
 
             lblLevelImg10.setText(my.getResultLevel());
 
@@ -1167,6 +1126,8 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         //Toast.makeText(this, "R = " + red + "; G = " + green + "; B = " + blue, Toast.LENGTH_LONG).show();
         // Toast.makeText(this, rgbHex, Toast.LENGTH_LONG).show();
     }
+
+
 
     private void toHistory(String note) {
 

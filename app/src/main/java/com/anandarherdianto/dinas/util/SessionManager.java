@@ -13,24 +13,27 @@ public class SessionManager {
     private static final String TAG = "Session";
 
     // Shared Preferences
-    SharedPreferences pref;
+    SharedPreferences pref, pref2;
 
-    SharedPreferences.Editor editor;
+    SharedPreferences.Editor editor, editor2;
     Context _context;
 
     // Shared pref mode
     int PRIVATE_MODE = 0;
 
     private static final String PREF_NAME = "AppLogin";
-
+    private static final String PREF_NAME_2 = "AppWeather";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-    private static final String KEY_IS_FINGER_LOGGEDIN = "isFingerLoggedIn";
+    private static final String KEY_UPDATE_TEMP = "updateTemp";
 
     public SessionManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
+
+        pref2 = _context.getSharedPreferences(PREF_NAME_2, PRIVATE_MODE);
+        editor2 = pref2.edit();
     }
 
     public void setLogin(boolean isLoggedIn) {
@@ -46,17 +49,16 @@ public class SessionManager {
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
 
-    public void setFingerLogin(boolean isFingerLoggedin){
-        editor.putBoolean(KEY_IS_FINGER_LOGGEDIN, isFingerLoggedin);
+    public void setTemp(String temp){
+        editor2.putString(KEY_UPDATE_TEMP, temp);
 
         // commit changes
-        editor.commit();
+        editor2.commit();
 
-        Log.d(TAG, "User login session modified!");
+        Log.d(TAG, "Temperature Updated!");
     }
 
-    public boolean isFingerLoggedin(){
-        return pref.getBoolean(KEY_IS_FINGER_LOGGEDIN, false);
+    public String getTemp(){
+        return pref2.getString(KEY_UPDATE_TEMP, "0");
     }
-
 }
