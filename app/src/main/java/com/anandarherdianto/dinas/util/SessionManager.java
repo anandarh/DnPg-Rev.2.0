@@ -13,9 +13,9 @@ public class SessionManager {
     private static final String TAG = "Session";
 
     // Shared Preferences
-    SharedPreferences pref, pref2;
+    SharedPreferences pref, pref2, pref3;
 
-    SharedPreferences.Editor editor, editor2;
+    SharedPreferences.Editor editor, editor2, editor3;
     Context _context;
 
     // Shared pref mode
@@ -23,9 +23,11 @@ public class SessionManager {
 
     private static final String PREF_NAME = "AppLogin";
     private static final String PREF_NAME_2 = "AppWeather";
+    private static final String PREF_NAME_3 = "UploadStatus";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
     private static final String KEY_UPDATE_TEMP = "updateTemp";
+    private static final String KEY_IS_UPLOADED = "isUploaded";
 
     public SessionManager(Context context) {
         this._context = context;
@@ -34,6 +36,9 @@ public class SessionManager {
 
         pref2 = _context.getSharedPreferences(PREF_NAME_2, PRIVATE_MODE);
         editor2 = pref2.edit();
+
+        pref3 = _context.getSharedPreferences(PREF_NAME_3, PRIVATE_MODE);
+        editor3 = pref3.edit();
     }
 
     public void setLogin(boolean isLoggedIn) {
@@ -60,5 +65,18 @@ public class SessionManager {
 
     public String getTemp(){
         return pref2.getString(KEY_UPDATE_TEMP, "0");
+    }
+
+    public void setUpload(boolean isUploaded) {
+        editor3.putBoolean(KEY_IS_UPLOADED, isUploaded);
+
+        // commit changes
+        editor3.commit();
+
+        Log.d(TAG, "Upload session modified!");
+    }
+
+    public boolean isUploaded(){
+        return pref3.getBoolean(KEY_IS_UPLOADED, false);
     }
 }

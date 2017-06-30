@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -54,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtTemp"
-            android:text="Lat : -6.101921"
+            android:text="Lat : 0"
             android:textColor="@color/colorWhite" />
 
         <TextView
@@ -62,10 +61,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtLat"
-            android:text="Long : 108.101921"
+            android:text="Long : 0"
             android:textColor="@color/colorWhite" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtVillage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frmInfo"
+        android:layout_alignParentRight="true"
+        android:text="Lokasi tidak diketahui"
+        android:textColor="@color/colorWhite"
+        android:maxLength="25"/>
 
     <RelativeLayout
         android:id="@+id/frmInput"
@@ -83,6 +92,7 @@
             android:inputType="textPersonName"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
+            android:paddingRight="70dp"
             android:paddingTop="10dp"
             android:textColor="@color/colorWhite"
             android:textColorHint="#737272" />

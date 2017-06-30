@@ -27,7 +27,7 @@
                 app:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/txtUsername"
+                android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imgProfile"
@@ -47,20 +47,32 @@
                 android:id="@+id/frmAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtUsername"
+                android:layout_below="@id/txtName"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/square_border_white"
                 android:padding="10dp">
 
                 <EditText
+                    android:id="@+id/txtUsername"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
                     android:id="@+id/txtOldPassword"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/txtUsername"
                     android:hint="Password Lama"
                     android:inputType="textPassword"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/colorWhite" />
 
                 <EditText
@@ -91,7 +103,7 @@
             </RelativeLayout>
 
             <com.anandarherdianto.dinas.util.FButton
-                android:id="@+id/btnHistoryBack"
+                android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/frmAccount"

@@ -11,7 +11,6 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.File;
@@ -25,8 +24,8 @@ import java.io.IOException;
 
 public class CompressImage {
 
-    String imgName;
-    Boolean nitrogen;
+    private String imgName;
+    private Boolean nitrogen;
 
     public String compressImage(Context context, String imageUri, String imgName, Boolean nitrogen) {
 
@@ -48,8 +47,8 @@ public class CompressImage {
 
         if(nitrogen){
           // 640x480
-            maxWidth = 640.0f;
-            maxHeight = 480.0f;
+            maxWidth = 250.0f;
+            maxHeight = 250.0f;
         }else {
           // 1280x768
             maxWidth = 1280.0f;
@@ -140,11 +139,12 @@ public class CompressImage {
             scaledBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
                     scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix,
                     true);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        FileOutputStream out = null;
+        FileOutputStream out;
         String filename = getFilename();
         try {
             out = new FileOutputStream(filename);
@@ -160,7 +160,7 @@ public class CompressImage {
 
     }
 
-    public String getFilename() {
+    private String getFilename() {
         String extr = Environment.getExternalStorageDirectory().toString();
 
         File mFolder = new File(extr + "/Dinas");
@@ -168,7 +168,7 @@ public class CompressImage {
             mFolder.mkdirs();
         }
 
-        File folder = null;
+        File folder;
         if(nitrogen) {
             folder = new File(mFolder + File.separator + "Nitrogen");
         }else {
@@ -196,7 +196,7 @@ public class CompressImage {
         }
     }
 
-    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;

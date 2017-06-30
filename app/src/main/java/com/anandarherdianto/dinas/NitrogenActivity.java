@@ -1117,9 +1117,10 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
         long green = (greenColors / pixelCount);
         long blue = (blueColors / pixelCount);
 
-        String rgbHex = String.format("%02x%02x%02x", red, green, blue).toUpperCase();
+        //String rgbHex = String.format("%02x%02x%02x", red, green, blue).toUpperCase();
 
-        Log.d("TAG_RGB", rgbHex);
+        //Log.d("TAG_RGB", rgbHex);
+        Log.d("TAG_RGB", "R = " + red + "; G = " + green + "; B = " + blue);
 
         return new int[]{(int) red, (int) green, (int) blue};
 

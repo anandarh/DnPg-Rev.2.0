@@ -1,13 +1,13 @@
 package com.anandarherdianto.dinas;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.location.Address;
 import android.location.Geocoder;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -34,6 +35,7 @@ import com.anandarherdianto.dinas.model.DocumentationAlbumModel;
 import com.anandarherdianto.dinas.util.CommunicationController;
 import com.anandarherdianto.dinas.util.DatabaseHandler;
 import com.anandarherdianto.dinas.util.GPSTracker;
+import com.anandarherdianto.dinas.util.SessionManager;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -65,6 +67,7 @@ public class DocumentationActivity extends AppCompatActivity {
     private DatabaseHandler db;
     private String fileName, fullAddress, village, userId;
     private double latitude, longitude;
+    private SessionManager session;
 
     static final int REQUEST_IMG_CAPTURE = 111;
 
@@ -89,6 +92,9 @@ public class DocumentationActivity extends AppCompatActivity {
 
         // SqLite database handler
         db = new DatabaseHandler(getApplicationContext());
+
+        // Session manager
+        session = new SessionManager(getApplicationContext());
 
         // Fetching user details from database
         HashMap<String, String> user = db.getUserDetails();
@@ -193,7 +199,35 @@ public class DocumentationActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+
+        Boolean status = session.isUploaded();
+
+        if(status){
+            session.setUpload(false);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Foto berhasil diunggah!")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            adapter.notifyDataSetChanged();
+                            albumList.clear();
+                            prepareAlbums();
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+
+        super.onResume();
+    }
+
     private void addDocumentationActivity(){
+
         Intent i = new Intent(DocumentationActivity.this, AddDocumentationActivity.class);
         i.putExtra("filePath", file_uri.getPath());
         i.putExtra("fileName", fileName);
@@ -203,6 +237,7 @@ public class DocumentationActivity extends AppCompatActivity {
         i.putExtra("village", village);
         i.putExtra("user_id", userId);
         startActivity(i);
+
     }
 
 
@@ -247,12 +282,9 @@ public class DocumentationActivity extends AppCompatActivity {
 
             try {
                 addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            } catch (IOException ioException) {
+            } catch (IOException | IllegalArgumentException ioException) {
                 // Catch network or other I/O problems.
                 //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
-            } catch (IllegalArgumentException illegalArgumentException) {
-                // Catch invalid latitude or longitude values.
-                //Toast.makeText(getApplicationContext(), "Error2", Toast.LENGTH_LONG).show();
             }
 
             if (addresses == null || addresses.size() == 0) {
@@ -321,7 +353,7 @@ public class DocumentationActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Documentation : ", response.toString());
+                        Log.d("Documentation : ", response);
                         hideDialog();
 
                         try {
@@ -371,13 +403,13 @@ public class DocumentationActivity extends AppCompatActivity {
     /**
      * RecyclerView item decoration - give equal margin around grid item
      */
-    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+    private class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;
         private int spacing;
         private boolean includeEdge;
 
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+        GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
             this.spanCount = spanCount;
             this.spacing = spacing;
             this.includeEdge = includeEdge;

@@ -1,28 +1,37 @@
 package com.anandarherdianto.dinas;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import java.util.Calendar;
+import android.location.Location;
+import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anandarherdianto.dinas.util.CompressImage;
-import com.anandarherdianto.dinas.util.SessionManager;
 import com.anandarherdianto.dinas.util.CommunicationController;
+import com.anandarherdianto.dinas.util.CompressImage;
+import com.anandarherdianto.dinas.util.GeoTagUtility;
+import com.anandarherdianto.dinas.util.SessionManager;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -34,8 +43,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +60,7 @@ public class AddDocumentationActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private Bitmap imgSrc;
     private  EditText txtTitle, txtNote;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +74,14 @@ public class AddDocumentationActivity extends AppCompatActivity {
         TextView txtTemp = (TextView) findViewById(R.id.txtTemp);
         TextView txtLat = (TextView) findViewById(R.id.txtLat);
         TextView txtLon = (TextView) findViewById(R.id.txtLong);
+        final TextView txtVillage = (TextView) findViewById(R.id.txtVillage);
         imgPreview = (ImageView) findViewById(R.id.imgPreview);
 
         // Receiving the data from documentation activity
         Intent i = getIntent();
 
         // Session manager
-        SessionManager session = new SessionManager(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
 
         // image path that is captured in documentation activity
         filePath = i.getStringExtra("filePath");
@@ -95,9 +108,34 @@ public class AddDocumentationActivity extends AppCompatActivity {
             finish();
         }
 
+        if(lat == null || lat.equals("0.0")){
+            txtLat.setText("Lat : "+ lat);
+        }else {
+            //txtLat.setText("Lat : "+ lat.substring(0, 9));
+            txtLat.setText("Lat : "+ lat);
+        }
+
+        if(lon == null || lon.equals("0.0")){
+            txtLon.setText("Long : "+ lon);
+        }else{
+            //txtLon.setText("Long : "+ lon.substring(0, 10));
+            txtLon.setText("Long : "+ lon);
+        }
+
+        if(location == null){
+            location = "Tidak diketahui";
+        }
+
+        if(village == null){
+            village = "Tidak diketahui";
+        }
+
+        if(temp == null){
+            temp = "0";
+        }
+
         txtTemp.setText("Suhu : "+ temp +" \u2103");
-        txtLat.setText("Lat : "+ lat.substring(0, 9));
-        txtLon.setText("Long : "+ lon.substring(0, 10));
+        txtVillage.setText(village);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +169,46 @@ public class AddDocumentationActivity extends AppCompatActivity {
 
             }
         });
+
+        txtVillage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(AddDocumentationActivity.this);
+                alert.setTitle("Lokasi");
+                alert.setMessage("\nMasukan nama wilayah : ");
+
+                final EditText input = new EditText(AddDocumentationActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                input.setSingleLine(true);
+                input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(25)});
+                input.setVerticalScrollBarEnabled(true);
+                input.setMovementMethod(ScrollingMovementMethod.getInstance());
+                input.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
+                input.setText(village);
+
+                alert.setView(input);
+                alert.setIcon(R.drawable.ic_location_24dp);
+
+                alert.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String str = input.getEditableText().toString();
+                        txtVillage.setText(str);
+                        village = str;
+
+                    }
+                });
+                alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+            }
+        });
     }
 
     private void previewMedia(){
@@ -150,12 +228,20 @@ public class AddDocumentationActivity extends AppCompatActivity {
 
         imgPreview.setImageBitmap(imgSrc);
 
+        String path = getRealPathFromURI(this, filePath);
+
+        Location loc = new Location("");
+        loc.setLatitude(Double.parseDouble(lat));
+        loc.setLongitude(Double.parseDouble(lon));
+
+        MarkGeoTagImage(path, loc);
+
     }
 
     private class EncodeImageFromGallery extends AsyncTask<Void, Void, Void> {
         Bitmap image;
 
-        public EncodeImageFromGallery(Bitmap image){
+        EncodeImageFromGallery(Bitmap image){
             this.image = image;
         }
 
@@ -200,7 +286,7 @@ public class AddDocumentationActivity extends AppCompatActivity {
                                 // successfully upload
                                 Toast.makeText(getApplicationContext(),
                                         "Upload Success!", Toast.LENGTH_LONG).show();
-                                //session.setStatus("uploaded");
+                                session.setUpload(true);
                                 finish();
 
                             } else {
@@ -261,4 +347,51 @@ public class AddDocumentationActivity extends AppCompatActivity {
             pDialog.dismiss();
     }
 
+
+    private String getRealPathFromURI(Context context, String contentURI) {
+        Uri contentUri = Uri.parse(contentURI);
+        Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
+        if (cursor == null) {
+            return contentUri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(index);
+        }
+    }
+
+    public void MarkGeoTagImage(String imagePath, Location location)
+    {
+        ExifInterface exif;
+
+        JSONObject data = new JSONObject();
+        try {
+            data.put("temp", temp);
+            data.put("title",title);
+            data.put("description",desc);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String jsonData = data.toString();
+
+        try {
+            exif = new ExifInterface(imagePath);
+
+            exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, GeoTagUtility.convert(location.getLatitude()));
+            exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, GeoTagUtility.latitudeRef(location.getLatitude()));
+            exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, GeoTagUtility.convert(location.getLongitude()));
+            exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, GeoTagUtility.longitudeRef(location.getLongitude()));
+            exif.setAttribute(ExifInterface.TAG_USER_COMMENT, jsonData);
+            exif.saveAttributes();
+
+
+            Log.d("EXIF", "Exif DATA: " + exif.getAttribute(ExifInterface.TAG_USER_COMMENT));
+            Log.d("Exif", "Exif : "+exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE));
+            Log.d("Exif", "Exif : "+exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
