@@ -122,6 +122,7 @@ public class AddDocumentationActivity extends AppCompatActivity {
             txtLon.setText("Long : "+ lon);
         }
 
+
         if(location == null){
             location = "Tidak diketahui";
         }

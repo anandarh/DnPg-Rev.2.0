@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity
 
     private Handler handler;
 
+    private String loc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,41 +268,43 @@ public class MainActivity extends AppCompatActivity
     }
 
     // Get Coordinate from GPS
-    private void getGPS() {
-        // call class object
-        gps = new GPSTracker(MainActivity.this);
+    private void getGPS(){
 
-        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+            // call class object
+            gps = new GPSTracker(MainActivity.this);
 
-        List<Address> addresses = null;
+            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
 
-        // check if GPS enabled
-        if (gps.canGetLocation()) {
+            List<Address> addresses = null;
 
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
+            // check if GPS enabled
+            if (gps.canGetLocation()) {
 
-            Log.d("Coordinate", "Latitude = " + latitude + " Longitude = " + longitude);
+                latitude = gps.getLatitude();
+                longitude = gps.getLongitude();
 
-            try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            } catch (IOException ioException) {
-                // Catch network or other I/O problems.
-                //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
-            } catch (IllegalArgumentException illegalArgumentException) {
-                // Catch invalid latitude or longitude values.
-                //Toast.makeText(getApplicationContext(), "Error2", Toast.LENGTH_LONG).show();
-            }
+                Log.d("Coordinate", "Latitude = " + latitude + " Longitude = " + longitude);
 
-            if (addresses == null || addresses.size() == 0) {
-                hLocation.setText("");
+                try {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                } catch (IOException ioException) {
+                    // Catch network or other I/O problems.
+                    //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
+                } catch (IllegalArgumentException illegalArgumentException) {
+                    // Catch invalid latitude or longitude values.
+                    //Toast.makeText(getApplicationContext(), "Error2", Toast.LENGTH_LONG).show();
+                }
+
+                if (addresses == null || addresses.size() == 0) {
+                    hLocation.setText("");
+                } else {
+                    loc = addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea();
+                    hLocation.setText(loc);
+                }
+
             } else {
-                hLocation.setText(addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea());
+                hLocation.setText("");
             }
-
-        } else {
-            hLocation.setText("");
-        }
 
     }
 
@@ -348,7 +352,7 @@ public class MainActivity extends AppCompatActivity
 
                 @Override
                 public void onResponse(String response) {
-                    Log.d("Weather", "Login Response: " + response.toString());
+                    Log.d("Weather", "Weather Response: " + response.toString());
 
                     try {
                         JSONObject jObj = new JSONObject(response);

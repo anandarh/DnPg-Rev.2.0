@@ -1,32 +1,59 @@
 package com.anandarherdianto.dinas;
 
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anandarherdianto.dinas.util.AppConfig;
+import com.anandarherdianto.dinas.util.CommunicationController;
 import com.anandarherdianto.dinas.util.DatabaseHandler;
 import com.anandarherdianto.dinas.util.FButton;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AccountActivity extends AppCompatActivity {
 
     private DatabaseHandler db;
 
+    private HashMap<String, String> user;
+
     private EditText txtUsername,txtOldPass, txtNewPass, txtConfirmPass;
+
+    private TextView txtName;
 
     private FButton btnSave;
 
-    private String username;
+    private String username, userId, names;
 
-    private Boolean passChange, uNameChange;
+    private Boolean passChange, uNameChange, nameChange;
+
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +65,16 @@ public class AccountActivity extends AppCompatActivity {
         db = new DatabaseHandler(getApplicationContext());
 
         // Fetching user details from database
-        HashMap<String, String> user = db.getUserDetails();
+        user = db.getUserDetails();
         username = user.get("username");
+        userId = user.get("user_id");
+        names = user.get("name");
 
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
+        txtName = (TextView)findViewById(R.id.txtName);
         txtUsername = (EditText)findViewById(R.id.txtUsername);
         txtOldPass = (EditText)findViewById(R.id.txtOldPassword);
         txtNewPass = (EditText)findViewById(R.id.txtNewPassword);
@@ -48,9 +82,55 @@ public class AccountActivity extends AppCompatActivity {
         btnSave = (FButton)findViewById(R.id.btnSave);
 
         txtUsername.setText(username);
+        txtName.setText(names);
 
         passChange = false;
         uNameChange = false;
+        nameChange = false;
+
+        txtName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(AccountActivity.this);
+                alert.setTitle("Ubah Nama");
+                alert.setMessage("\nMasukan nama anda : ");
+
+                final EditText input = new EditText(AccountActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                input.setSingleLine(true);
+                input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(25)});
+                input.setVerticalScrollBarEnabled(true);
+                input.setMovementMethod(ScrollingMovementMethod.getInstance());
+                input.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
+                input.setText(txtName.getText());
+
+                alert.setView(input);
+                alert.setIcon(R.drawable.ic_edit_black_24dp);
+
+                alert.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String str = input.getEditableText().toString();
+
+                        if(!str.trim().isEmpty()) {
+                            txtName.setText(str);
+                        }else{
+                            dialog.cancel();
+                        }
+
+                    }
+                });
+                alert.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +154,7 @@ public class AccountActivity extends AppCompatActivity {
 
     private void updateAccount(){
 
+        String name = txtName.getText().toString().trim();
         String uName = txtUsername.getText().toString().trim();
         String oldPass = txtOldPass.getText().toString().trim();
         String newPass = txtNewPass.getText().toString().trim();
@@ -134,14 +215,183 @@ public class AccountActivity extends AppCompatActivity {
             uNameChange = false;
         }
 
-        if(uNameChange.equals(true) && passChange.equals(true)){
-            Toast.makeText(this, "Username dan Password berhasil diubah", Toast.LENGTH_LONG).show();
-        }else if(uNameChange.equals(true)){
-            Toast.makeText(this, "Username berhasil diubah", Toast.LENGTH_LONG).show();
-        }else if(passChange.equals(true)){
-            Toast.makeText(this, "Password berhasil diubah", Toast.LENGTH_LONG).show();
+        if(!name.equals(names)){
+            if(!name.isEmpty()){
+                if(oldPass.isEmpty()){
+                    Toast.makeText(this, "Password Lama harus diisi!", Toast.LENGTH_LONG).show();
+                    txtOldPass.requestFocus();
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(txtOldPass, InputMethodManager.SHOW_IMPLICIT);
+
+                    nameChange = false;
+                }else {
+                    Log.d("ACCOUNT_TAG", "Name has been changed. "+names);
+                    nameChange = true;
+                }
+            }else {
+                nameChange = false;
+            }
         }else {
-            Toast.makeText(this, "Tidak ada  yang diubah", Toast.LENGTH_LONG).show();
+            nameChange = false;
         }
+
+        if((uNameChange.equals(true) || nameChange.equals(true)) && passChange.equals(false)){
+           update2(uName, oldPass, name);
+        }else if(passChange.equals(true)){
+            updateAll(uName, oldPass, name, newPass);
+        }else {
+            //Toast.makeText(this, "Tidak ada  yang diubah", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void updateAll(final String username, final String oldPassword, final String name, final String newPassword) {
+
+        String tag_string_req = "req_updateAccount";
+
+        pDialog.setMessage("Loading...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_UPDATE_ALL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("ACCOUNT_TAG", "Update Response: " + response.toString());
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
+                    if (!error) {
+
+                        Log.d("ACCOUNT_TAG", "Update success.");
+                        Toast.makeText(getApplicationContext(),
+                                "Perubahan akun berhasil.", Toast.LENGTH_LONG).show();
+
+                        db.updateUser(username, name, userId);
+
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Log.e("Error in JSON:", e.getMessage());
+                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat menghubungi server!", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<>();
+                params.put("username", username);
+                params.put("userpass", oldPassword);
+                params.put("newpass", newPassword);
+                params.put("name", name);
+                params.put("user_id", userId);
+
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        CommunicationController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+    }
+
+    private void update2(final String username, final String oldPassword, final String name) {
+
+        String tag_string_req = "req_updateAccount";
+
+        pDialog.setMessage("Loading...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_UPDATE_ALL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("ACCOUNT_TAG", "Update Response: " + response.toString());
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
+                    if (!error) {
+
+                        Log.d("ACCOUNT_TAG", "Update success.");
+                        Toast.makeText(getApplicationContext(),
+                                "Perubahan akun berhasil.", Toast.LENGTH_LONG).show();
+
+                        db.updateUser(username, name, userId);
+
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Log.e("Error in JSON:", e.getMessage());
+                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat menghubungi server!", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<>();
+                params.put("username", username);
+                params.put("userpass", oldPassword);
+                params.put("name", name);
+                params.put("user_id", userId);
+
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        CommunicationController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }

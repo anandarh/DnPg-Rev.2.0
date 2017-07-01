@@ -123,6 +123,16 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         Log.d(TAG, "Deleted all user info from database");
     }
 
+    //Update user dara
+    public void updateUser(String username, String name, String userId){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues data=new ContentValues();
+        data.put("username", username);
+        data.put("name", name);
+        db.update(TABLE_USER, data, "user_id=" + userId, null);
+    }
+
 
     //History Table CRUD
     //Inserting a history

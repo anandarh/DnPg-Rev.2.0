@@ -25,6 +25,8 @@ public class AppConfig {
     //OpenWeatherMap App ID
     public static String APP_ID = "e16b05533172b4ddba99ca0ad6407ced";
 
+    //update account all
+    public static String URL_UPDATE_ALL = "http://dinaspanganapp.anandarh.my.id/api/account/update_all";
 
 
 

@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
@@ -264,45 +265,47 @@ public class DocumentationActivity extends AppCompatActivity {
     }
 
     // Get Coordinate from GPS
-    private void getGPS() {
-        // call class object
-        GPSTracker gps = new GPSTracker(DocumentationActivity.this);
+    private void getGPS(){
 
-        Geocoder geocoder = new Geocoder(DocumentationActivity.this, Locale.getDefault());
+            // call class object
+            GPSTracker gps = new GPSTracker(DocumentationActivity.this);
 
-        List<Address> addresses = null;
+            Geocoder geocoder = new Geocoder(DocumentationActivity.this, Locale.getDefault());
 
-        // check if GPS enabled
-        if (gps.canGetLocation()) {
+            List<Address> addresses = null;
 
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
+            // check if GPS enabled
+            if (gps.canGetLocation()) {
 
-            Log.d("Coordinate", "Latitude = " + latitude + " Longitude = " + longitude);
+                latitude = gps.getLatitude();
+                longitude = gps.getLongitude();
 
-            try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            } catch (IOException | IllegalArgumentException ioException) {
-                // Catch network or other I/O problems.
-                //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
-            }
+                Log.d("Coordinate", "Latitude = " + latitude + " Longitude = " + longitude);
 
-            if (addresses == null || addresses.size() == 0) {
+                try {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                } catch (IOException | IllegalArgumentException ioException) {
+                    // Catch network or other I/O problems.
+                    //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
+                }
+
+                if (addresses == null || addresses.size() == 0) {
+                    fullAddress = "Tidak Diketahui";
+                    village = "Tidak Diketahui";
+                } else {
+
+                    fullAddress = addresses.get(0).getAddressLine(0) + " " + addresses.get(0).getAddressLine(1) + " Kec. " +
+                            addresses.get(0).getAddressLine(2);
+                    village = addresses.get(0).getAddressLine(1);
+                }
+
+            } else {
                 fullAddress = "Tidak Diketahui";
                 village = "Tidak Diketahui";
-            } else {
-
-                fullAddress = addresses.get(0).getAddressLine(0) + " " + addresses.get(0).getAddressLine(1) + " Kec. " +
-                              addresses.get(0).getAddressLine(2);
-                village = addresses.get(0).getAddressLine(1);
             }
 
-        } else {
-            fullAddress = "Tidak Diketahui";
-            village = "Tidak Diketahui";
-        }
-
     }
+
 
 
     /**
