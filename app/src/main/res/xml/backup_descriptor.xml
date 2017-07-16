@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- TODO Remove the following "exclude" elements to make them a part of the auto backup -->
+    <exclude
+        domain="database"
+        path="DinasPanganDB" />
+    <!-- Exclude the shared preferences file that contains the GCM registrationId -->
+    <exclude
+        domain="sharedpref"
+        path="UploadStatus.xml" />
+    <exclude
+        domain="sharedpref"
+        path="AppLogin.xml" />
+    <exclude
+        domain="sharedpref"
+        path="AppWeather.xml" />
+</full-backup-content>

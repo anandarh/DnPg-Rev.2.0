@@ -365,16 +365,7 @@ public class AddDocumentationActivity extends AppCompatActivity {
     {
         ExifInterface exif;
 
-        JSONObject data = new JSONObject();
-        try {
-            data.put("temp", temp);
-            data.put("title",title);
-            data.put("description",desc);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String jsonData = data.toString();
+        String jsonData = "{\"title\":\"" + title + "\", \"temp\":\""+temp+"\", \"description\":\""+desc+"\"}";
 
         try {
             exif = new ExifInterface(imagePath);
@@ -383,13 +374,20 @@ public class AddDocumentationActivity extends AppCompatActivity {
             exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, GeoTagUtility.latitudeRef(location.getLatitude()));
             exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, GeoTagUtility.convert(location.getLongitude()));
             exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, GeoTagUtility.longitudeRef(location.getLongitude()));
-            exif.setAttribute(ExifInterface.TAG_USER_COMMENT, jsonData);
+            //exif.setAttribute(ExifInterface.TAG_GPS_AREA_INFORMATION, village);
+            //exif.setAttribute(ExifInterface.TAG_COPYRIGHT, "Dinsa Pangan Majalengka");
+            //exif.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, desc);
+
+            //exif.setAttribute(ExifInterface.TAG_USER_COMMENT, jsonData);
             exif.saveAttributes();
 
 
-            Log.d("EXIF", "Exif DATA: " + exif.getAttribute(ExifInterface.TAG_USER_COMMENT));
-            Log.d("Exif", "Exif : "+exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE));
-            Log.d("Exif", "Exif : "+exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE));
+            Log.d("EXIF", "Exif : "+exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE));
+            Log.d("EXIF", "Exif : "+exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE));
+            //Log.d("EXIF", "Exif : " + exif.getAttribute(ExifInterface.TAG_GPS_AREA_INFORMATION));
+            //Log.d("EXIF", "Exif : " + exif.getAttribute(ExifInterface.TAG_COPYRIGHT));
+            //Log.d("EXIF", "Exif : " + exif.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION));
+            //Log.d("EXIF", "Exif : " + exif.getAttribute(ExifInterface.TAG_USER_COMMENT));
 
         } catch (IOException e) {
             e.printStackTrace();
