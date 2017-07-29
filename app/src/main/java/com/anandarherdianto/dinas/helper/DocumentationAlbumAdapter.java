@@ -1,6 +1,7 @@
 package com.anandarherdianto.dinas.helper;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -73,6 +74,9 @@ public class DocumentationAlbumAdapter extends RecyclerView.Adapter<Documentatio
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+
+            Typeface myFont = Typeface.createFromAsset(mContext.getAssets(), "fonts/Courgette-Regular.ttf");
+            title.setTypeface(myFont);
             //overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }

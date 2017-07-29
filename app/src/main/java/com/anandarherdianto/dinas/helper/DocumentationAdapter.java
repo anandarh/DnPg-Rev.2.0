@@ -1,6 +1,7 @@
 package com.anandarherdianto.dinas.helper;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
         holder.dTitle.setText(doc.getTitle());
         holder.dDesc.setText(doc.getDescription());
         holder.dDate.setText(doc.getDate());
+        holder.dTemp.setText("Suhu : "+doc.getTemp()+"\u2103");
 
         // loading album cover using Glide library
         Glide.with(dContext).load(doc.getThumbnail()).into(holder.dThumbnail);
@@ -53,7 +55,7 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView dThumbnail;
-        public TextView dTitle, dDesc, dDate;
+        public TextView dTitle, dDesc, dDate, dTemp;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -61,6 +63,10 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
             dTitle = (TextView) itemView.findViewById(R.id.title);
             dDesc = (TextView) itemView.findViewById(R.id.description);
             dDate = (TextView) itemView.findViewById(R.id.date);
+            dTemp = (TextView) itemView.findViewById(R.id.txtTemp);
+
+            Typeface myFont = Typeface.createFromAsset(dContext.getAssets(), "fonts/Courgette-Regular.ttf");
+            dTitle.setTypeface(myFont);
         }
     }
 }

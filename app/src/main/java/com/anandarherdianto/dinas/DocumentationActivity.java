@@ -50,6 +50,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +70,8 @@ public class DocumentationActivity extends AppCompatActivity {
     private String fileName, fullAddress, village, userId;
     private double latitude, longitude;
     private SessionManager session;
+    private GPSTracker gps;
+    private boolean canGetLocation;
 
     static final int REQUEST_IMG_CAPTURE = 111;
 
@@ -85,8 +88,13 @@ public class DocumentationActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.addDoc);
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorWhite)));
 
+        canGetLocation = false;
+
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
+
+        // call class object
+        gps = new GPSTracker(DocumentationActivity.this);
 
         albumList = new ArrayList<>();
         adapter = new DocumentationAlbumAdapter(this, albumList);
@@ -127,10 +135,16 @@ public class DocumentationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                getFileUri();
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
-                startActivityForResult(intent, REQUEST_IMG_CAPTURE);
+                if(canGetLocation) {
+
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    getFileUri();
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
+                    startActivityForResult(intent, REQUEST_IMG_CAPTURE);
+
+                }else{
+                    gps.showSettingsAlert();
+                }
 
             }
         });
@@ -143,7 +157,15 @@ public class DocumentationActivity extends AppCompatActivity {
 
         prepareAlbums();
 
-        getGPS();
+        // check if GPS enabled
+        if (gps.canGetLocation()) {
+
+            canGetLocation = true;
+
+        } else {
+
+            canGetLocation = false;
+        }
 
     }
 
@@ -181,6 +203,10 @@ public class DocumentationActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 // successfully captured the image
+
+                //get GPS
+                getGPS();
+
                 // launching add documentation activity
                 addDocumentationActivity();
 
@@ -202,6 +228,8 @@ public class DocumentationActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+
+        getGPS();
 
         Boolean status = session.isUploaded();
 
@@ -264,48 +292,63 @@ public class DocumentationActivity extends AppCompatActivity {
 
     }
 
-    // Get Coordinate from GPS
+
     private void getGPS(){
 
-            // call class object
-            GPSTracker gps = new GPSTracker(DocumentationActivity.this);
+        GPSTracker gps2 = new GPSTracker(DocumentationActivity.this);
 
-            Geocoder geocoder = new Geocoder(DocumentationActivity.this, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(DocumentationActivity.this, Locale.getDefault());
 
-            List<Address> addresses = null;
+        List<Address> addresses = null;
 
-            // check if GPS enabled
-            if (gps.canGetLocation()) {
+        // check if GPS enabled
+        if (gps2.canGetLocation()) {
 
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
+            canGetLocation = true;
 
-                Log.d("Coordinate", "Latitude = " + latitude + " Longitude = " + longitude);
+            latitude = gps2.getLatitude();
+            longitude = gps2.getLongitude();
 
-                try {
-                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                } catch (IOException | IllegalArgumentException ioException) {
-                    // Catch network or other I/O problems.
-                    //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
-                }
+            Log.d("Coordinate", "Latitude = " + latitude + " Longitude = " + longitude);
 
-                if (addresses == null || addresses.size() == 0) {
-                    fullAddress = "Tidak Diketahui";
-                    village = "Tidak Diketahui";
-                } else {
-
-                    fullAddress = addresses.get(0).getAddressLine(0) + " " + addresses.get(0).getAddressLine(1) + " Kec. " +
-                            addresses.get(0).getAddressLine(2);
-                    village = addresses.get(0).getAddressLine(1);
-                }
-
-            } else {
-                fullAddress = "Tidak Diketahui";
-                village = "Tidak Diketahui";
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            } catch (IOException | IllegalArgumentException ioException) {
+                // Catch network or other I/O problems.
+                //Toast.makeText(getApplicationContext(), "Error1", Toast.LENGTH_LONG).show();
             }
 
-    }
+            if (addresses == null || addresses.size() == 0) {
+                fullAddress = "Tidak Diketahui";
+                village = "Tidak Diketahui";
+            } else {
 
+
+                if(addresses.get(0).getAddressLine(0) != null) {
+
+                    fullAddress = addresses.get(0).getAddressLine(0);
+
+                    List<String> loc = Arrays.asList(fullAddress.split("\\s*,\\s*"));
+
+                    village = loc.get(1); //get village name
+
+                }else{
+                    fullAddress = "Tidak Diketahui";
+                    village = "Tidak Diketahui";
+                }
+
+                Log.d("GPS", "Village = "+village);
+            }
+
+        } else {
+            fullAddress = "Tidak Diketahui";
+            village = "Tidak Diketahui";
+
+            canGetLocation = false;
+        }
+
+
+    }
 
 
     /**
@@ -373,6 +416,7 @@ public class DocumentationActivity extends AppCompatActivity {
                                     docModel.setTitle(obj.getString("village"));
                                     docModel.setThumbnail(obj.getString("img_path"));
                                     docModel.setNumOfImages(obj.getInt("sum_image"));
+
 
                                     albumList.add(docModel);
 

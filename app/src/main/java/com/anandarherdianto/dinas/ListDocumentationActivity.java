@@ -141,6 +141,7 @@ public class ListDocumentationActivity extends AppCompatActivity {
                                     docModel.setTitle(obj.getString("title"));
                                     docModel.setThumbnail(obj.getString("img_path"));
                                     docModel.setDescription(obj.getString("description"));
+                                    docModel.setTemp(obj.getInt("temp"));
                                     docModel.setDate(obj.getString("post_date"));
                                     listDoc.add(docModel);
 
