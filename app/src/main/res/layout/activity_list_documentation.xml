@@ -21,4 +21,15 @@
         android:layout_height="match_parent"
         android:visibility="invisible" />
 
+    <!--
+    <Button
+        android:id="@+id/btnDownload"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Hahaha"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+
+    -->
+
 </RelativeLayout>

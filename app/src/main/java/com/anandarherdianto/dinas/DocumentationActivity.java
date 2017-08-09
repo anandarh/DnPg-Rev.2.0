@@ -218,7 +218,7 @@ public class DocumentationActivity extends AppCompatActivity {
             } else {
                 // failed to capture image
                 Toast.makeText(getApplicationContext(),
-                        "Maaf! Terjadi kesalahan saat mengambil gambar.", Toast.LENGTH_SHORT)
+                        "Terjadi kesalahan saat mengambil gambar!", Toast.LENGTH_SHORT)
                         .show();
             }
 
@@ -410,20 +410,28 @@ public class DocumentationActivity extends AppCompatActivity {
                             if (!error) {
                                 // Now store the user in SQLite
                                 JSONArray jArr = jObj.getJSONArray("documentation");
-                                for (int i = 0; i < jArr.length(); i++) {
-                                    JSONObject obj = jArr.getJSONObject(i);
-                                    DocumentationAlbumModel docModel = new DocumentationAlbumModel();
-                                    docModel.setTitle(obj.getString("village"));
-                                    docModel.setThumbnail(obj.getString("img_path"));
-                                    docModel.setNumOfImages(obj.getInt("sum_image"));
 
+                                if(jArr != null && jArr.length() > 0){
 
-                                    albumList.add(docModel);
+                                    for (int i = 0; i < jArr.length(); i++) {
+                                        JSONObject obj = jArr.getJSONObject(i);
+                                        DocumentationAlbumModel docModel = new DocumentationAlbumModel();
+                                        docModel.setTitle(obj.getString("village"));
+                                        docModel.setThumbnail(obj.getString("img_path"));
+                                        docModel.setNumOfImages(obj.getInt("sum_image"));
 
+                                        albumList.add(docModel);
+
+                                    }
+
+                                }else {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Tidak ada data dokumentasi yang diposting!", Toast.LENGTH_LONG).show();
                                 }
+
                             } else {
                                 Toast.makeText(getApplicationContext(),
-                                        "Error : Terjadi kesalahan!", Toast.LENGTH_LONG).show();
+                                        "Error : Terjadi kesalahan saat mengambil data!", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -437,7 +445,7 @@ public class DocumentationActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat mengambil data!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Tidak dapat terhubung ke server. Silakan periksa sambungan internet anda!", Toast.LENGTH_LONG).show();
                 hideDialog();
             }
         });

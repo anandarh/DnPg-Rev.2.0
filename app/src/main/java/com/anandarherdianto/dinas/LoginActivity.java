@@ -2,6 +2,7 @@ package com.anandarherdianto.dinas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anandarherdianto.dinas.util.AppConfig;
@@ -47,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private DatabaseHandler db;
 
+    private HashMap<String, String> user;
+
     private DateFormat df;
 
     @Override
@@ -59,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin        = (Button) findViewById(R.id.btnLogin);
 
         // Progress dialog
-        pDialog = new ProgressDialog(this);
+        pDialog = new ProgressDialog(this,
+                R.style.AppTheme_Dark_Dialog);
         pDialog.setCancelable(false);
 
         // SQLite database handler
@@ -75,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
+            checkUpdate();
+
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -87,18 +94,23 @@ public class LoginActivity extends AppCompatActivity {
                 String username = inputUsername.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                // Check for empty data in the form
-                if (!username.isEmpty() && !password.isEmpty()) {
-                    // login user
-                    checkLogin(username, password);
-                } else {
-                    // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
-                            "Username dan Password harus diisi!", Toast.LENGTH_LONG)
-                            .show();
-                }
+                // login user
+                checkLogin(username, password);
+
             }
 
+        });
+
+        TextView resPass = (TextView)findViewById(R.id.txtResetPass);
+        Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/Courgette-Regular.ttf");
+        resPass.setTypeface(myFont);
+
+        resPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, ResetPassActivity.class);
+                startActivity(i);
+            }
         });
 
     }
@@ -107,18 +119,104 @@ public class LoginActivity extends AppCompatActivity {
 
         String tag_string_req = "req_login";
 
-        final String log = df.format(Calendar.getInstance().getTime());
+        if (!validate()) {
 
-        pDialog.setMessage("Logging in ...");
-        showDialog();
+        } else {
+
+            final String log = df.format(Calendar.getInstance().getTime());
+
+            pDialog.setMessage("Logging in ...");
+            showDialog();
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    AppConfig.URL_LOGIN, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, "Login Response: " + response.toString());
+                    hideDialog();
+
+                    try {
+                        JSONObject jObj = new JSONObject(response);
+                        boolean error = jObj.getBoolean("error");
+
+                        // Check for error node in json
+                        if (!error) {
+                            // User successfully logged in
+                            // Create login session
+                            session.setLogin(true);
+
+                            // Store the user to database
+                            JSONObject user = jObj.getJSONObject("user");
+                            String userId = user.getString("user_id");
+                            String username = user.getString("username");
+                            String email = user.getString("email");
+                            String name = user.getString("name");
+
+                            // Inserting row in users table
+                            db.addUser(userId, username, email, name, log);
+
+                            // Launch main activity
+                            Intent intent = new Intent(LoginActivity.this,
+                                    MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // Error in login. Get the error message
+                            String errorMsg = jObj.getString("error_msg");
+                            Toast.makeText(getApplicationContext(),
+                                    errorMsg, Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        // JSON error
+                        e.printStackTrace();
+                        Log.e("Error in JSON:", e.getMessage());
+                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat menghubungi server!", Toast.LENGTH_LONG).show();
+                    hideDialog();
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    // Posting parameters to login url
+                    Map<String, String> params = new HashMap<>();
+                    params.put("username", username);
+                    params.put("userpass", password);
+                    params.put("log", log);
+
+                    return params;
+                }
+            };
+
+            // Adding request to request queue
+            CommunicationController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        }
+
+    }
+
+    private void checkUpdate(){
+        // Fetching user details from database
+        user = db.getUserDetails();
+        final String userId = user.get("user_id");
+
+        String tag_string_req = "req_update";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_LOGIN, new Response.Listener<String>() {
+                AppConfig.URL_UPDATE_CHECK, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Login Response: " + response.toString());
-                hideDialog();
+                Log.d(TAG, "Update Response: " + response.toString());
 
                 try {
                     JSONObject jObj = new JSONObject(response);
@@ -126,24 +224,17 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Check for error node in json
                     if (!error) {
-                        // User successfully logged in
-                        // Create login session
-                        session.setLogin(true);
 
-                        // Store the user to database
+                        // Update the user to database
                         JSONObject user = jObj.getJSONObject("user");
                         String userId = user.getString("user_id");
                         String username = user.getString("username");
+                        String email = user.getString("email");
                         String name = user.getString("name");
 
-                        // Inserting row in users table
-                        db.addUser(userId, username, name, log);
+                        // Updating row in users table
+                        db.updateUser(username, name, email, userId);
 
-                        // Launch main activity
-                        Intent intent = new Intent(LoginActivity.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                        finish();
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
@@ -159,22 +250,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
             }
-        }, new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat menghubungi server!", Toast.LENGTH_LONG).show();
-                hideDialog();
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<>();
-                params.put("username", username);
-                params.put("userpass", password);
-                params.put("log", log);
+                params.put("user_id", userId);
 
                 return params;
             }
@@ -183,6 +271,44 @@ public class LoginActivity extends AppCompatActivity {
         // Adding request to request queue
         CommunicationController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
+    }
+
+    public boolean validate() {
+
+        boolean valid = true;
+
+        String user = inputUsername.getText().toString().trim();
+        String pass = inputPassword.getText().toString().trim();
+
+        if(user.isEmpty() && pass.isEmpty()){
+            Toast.makeText(getApplicationContext(), "Username dan Password harus diisi!", Toast.LENGTH_LONG).show();
+            inputUsername.requestFocus();
+            valid = false;
+        }else {
+
+            if (user.isEmpty()) {
+                inputUsername.setError("Masukan username anda!");
+                inputUsername.requestFocus();
+                valid = false;
+            } else if (!user.matches("[A-Za-z0-9_]+")) {
+                inputUsername.setError("Username hanya boleh berupa huruf, angka dan _");
+                inputUsername.requestFocus();
+                valid = false;
+            } else {
+                inputUsername.setError(null);
+            }
+
+            if (pass.isEmpty() || pass.length() < 6) {
+                inputPassword.setError("password harus 6 karakter atau lebih");
+                inputPassword.requestFocus();
+                valid = false;
+            } else {
+                inputPassword.setError(null);
+            }
+
+        }
+
+        return valid;
     }
 
     private void showDialog() {

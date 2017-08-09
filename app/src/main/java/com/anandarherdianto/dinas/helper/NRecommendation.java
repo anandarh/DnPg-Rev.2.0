@@ -37,6 +37,8 @@ public class NRecommendation {
             }else
             if(jmlTargetProduksi == 8){
                 nRecommend = 150;
+            }else {
+                nRecommend = 75;
             }
         }else
         if(nAvg > 3.0 && nAvg <= 4.0){
@@ -51,6 +53,8 @@ public class NRecommendation {
             }else
             if(jmlTargetProduksi == 8){
                 nRecommend = 125;
+            }else {
+                nRecommend = 50;
             }
         }else
         if(nAvg > 4.0){

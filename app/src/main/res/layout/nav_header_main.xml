@@ -14,6 +14,22 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:layout_marginLeft="15dp"
+        android:padding="2dp"
+        android:layout_marginBottom="2dp">
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="80dp"
+            android:layout_height="85dp"
+            android:src="@drawable/user_placeholder"
+            android:scaleType="fitXY"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#cd0ba600"
         android:paddingLeft="16dp"
         android:paddingTop="5dp"

@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +52,7 @@ import java.util.TimerTask;
 
 import static com.anandarherdianto.dinas.util.AppConfig.APP_ID;
 import static com.anandarherdianto.dinas.util.AppConfig.URL_API_WEATHER;
+import static com.anandarherdianto.dinas.util.AppConfig.URL_PROFILE_IMAGE;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -71,6 +74,8 @@ public class MainActivity extends AppCompatActivity
     private Handler handler;
 
     private String loc;
+
+    private ImageView imgProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +115,8 @@ public class MainActivity extends AppCompatActivity
         // Fetching user details from database
         HashMap<String, String> user = db.getUserDetails();
         String name = user.get("name");
+        String userId = user.get("user_id");
+
 
         Snackbar.make(view, "Selamat Bekerja " + name, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
@@ -124,12 +131,15 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View header = navigationView.getHeaderView(0);
+        imgProfile = (ImageView) header.findViewById(R.id.imgProfile);
         TextView hName = (TextView) header.findViewById(R.id.hName);
         hLocation = (TextView) header.findViewById(R.id.hLocation);
 
         hName.setText(name);
 
         getGPS();
+
+        getProfileImage(userId);
 
         // Call handler for change image
         handler.post(changeImage);
@@ -389,5 +399,43 @@ public class MainActivity extends AppCompatActivity
             handler.postDelayed(updateTemp, 60 * 1000 * 10);
         }
     };
+
+    private void getProfileImage(final String userId){
+        String tag_string_req = "req_profile";
+
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                URL_PROFILE_IMAGE+"/"+userId, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("PROFILE_IMAGE", "Server Response: " + response);
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                    String urlProfileImage = jObj.getString("profile_image");
+                    Log.d("PROFILE_IMAGE", "Server Response: " + urlProfileImage);
+
+                    Glide.with(getApplicationContext()).load(urlProfileImage).into(imgProfile);
+
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Log.e("Error in JSON:", e.getMessage());
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Terjadi kesalahan saat menghubungi server!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Adding request to request queue
+        CommunicationController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
 
 }

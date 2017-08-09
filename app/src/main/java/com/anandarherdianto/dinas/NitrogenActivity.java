@@ -475,6 +475,10 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
                     target = 8;
                 }
                 break;
+            default:
+                    nr.setJmlTargetProduksi(5);
+                    target = 5;
+                break;
         }
     }
 

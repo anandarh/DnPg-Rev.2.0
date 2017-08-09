@@ -10,6 +10,12 @@ public class AppConfig {
     //login by username and password
     public static String URL_LOGIN = "http://dinaspanganapp.anandarh.my.id/api/login";
 
+    //get profile image
+    public static String URL_PROFILE_IMAGE = "http://dinaspanganapp.anandarh.my.id/api/profile_image";
+
+    //reset password
+    public static String URL_RESET = "http://dinaspanganapp.anandarh.my.id/api/reset";
+
     //documentation albums url
     public static String URL_ALBUM_DOCUMENTATION = "http://dinaspanganapp.anandarh.my.id/api/documentation/album";
 
@@ -27,6 +33,9 @@ public class AppConfig {
 
     //update account all
     public static String URL_UPDATE_ALL = "http://dinaspanganapp.anandarh.my.id/api/account/update_all";
+
+    //check account update
+    public static String URL_UPDATE_CHECK = "http://dinaspanganapp.anandarh.my.id/api/account/update_check";
 
 
 

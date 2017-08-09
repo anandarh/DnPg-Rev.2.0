@@ -74,12 +74,13 @@ public class ListDocumentationActivity extends AppCompatActivity {
 
         listDoc = new ArrayList<>();
 
-        adapter = new DocumentationAdapter(this, listDoc);
+        adapter = new DocumentationAdapter(this, this, listDoc);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
+        /*
         recyclerView.addOnItemTouchListener(new TouchListenerAlbum(getApplicationContext(), recyclerView, new TouchListenerAlbum.ClickListener(){
 
             @Override
@@ -96,6 +97,7 @@ public class ListDocumentationActivity extends AppCompatActivity {
 
             }
         }));
+        */
 
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_longAnimTime);
@@ -143,6 +145,13 @@ public class ListDocumentationActivity extends AppCompatActivity {
                                     docModel.setDescription(obj.getString("description"));
                                     docModel.setTemp(obj.getInt("temp"));
                                     docModel.setDate(obj.getString("post_date"));
+                                    docModel.setUploader(obj.getString("name"));
+                                    if(obj.getString("profile_image") == ""){
+                                        docModel.setUploaderImage(null);
+                                    }else{
+                                        docModel.setUploaderImage(obj.getString("profile_image"));
+                                    }
+
                                     listDoc.add(docModel);
 
                                 }

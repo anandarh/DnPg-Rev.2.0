@@ -7,7 +7,7 @@ package com.anandarherdianto.dinas.model;
 public class DocumentationAlbumModel {
 
     private int doc_id, numOfImages, temp;
-    private String title, thumbnail, description, latitude, longitude, location, date, uploader;
+    private String title, thumbnail, description, latitude, longitude, location, date, uploader, uploader_image;
 
     public DocumentationAlbumModel() {
     }
@@ -104,5 +104,13 @@ public class DocumentationAlbumModel {
 
     public void setUploader(String uploader) {
         this.uploader = uploader;
+    }
+
+    public String getUploaderImage() {
+        return uploader_image;
+    }
+
+    public void setUploaderImage(String uploader_image) {
+        this.uploader_image = uploader_image;
     }
 }

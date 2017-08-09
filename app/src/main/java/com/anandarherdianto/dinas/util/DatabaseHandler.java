@@ -43,6 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         String CREATE_USER_TABLE = "CREATE TABLE "+TABLE_USER+" ( id INTEGER PRIMARY KEY, " +
                 "user_id TEXT NOT NULL, " +
                 "username TEXT NOT NULL, " +
+                "email TEXT, " +
                 "name TEXT NOT NULL, log_time TEXT NOT NULL)";
         db.execSQL(CREATE_USER_TABLE);
 
@@ -74,12 +75,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     //User Table CRUD
     //Inserting a user
-    public void addUser(String user_id, String username, String name, String log){
+    public void addUser(String user_id, String username, String email, String name, String log){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put("user_id", user_id);
         values.put("username", username);
+        values.put("email", email);
         values.put("name", name);
         values.put("log_time", log);
 
@@ -102,8 +104,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         if (cursor.getCount() > 0) {
             user.put("user_id", cursor.getString(1));
             user.put("username", cursor.getString(2));
-            user.put("name", cursor.getString(3));
-            user.put("log", cursor.getString(4));
+            user.put("email", cursor.getString(3));
+            user.put("name", cursor.getString(4));
+            user.put("log", cursor.getString(5));
         }
         cursor.close();
         db.close();
@@ -124,12 +127,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     //Update user dara
-    public void updateUser(String username, String name, String userId){
+    public void updateUser(String username, String name, String email, String userId){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues data=new ContentValues();
         data.put("username", username);
         data.put("name", name);
+        data.put("email", email);
         db.update(TABLE_USER, data, "user_id=" + userId, null);
     }
 
