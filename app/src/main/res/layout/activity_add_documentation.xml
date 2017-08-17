@@ -54,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txtTemp"
             android:text="Lat : 0"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorWhite"
+            android:maxLength="16"/>
 
         <TextView
             android:id="@+id/txtLong"
@@ -62,7 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txtLat"
             android:text="Long : 0"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorWhite"
+            android:maxLength="18"/>
 
     </RelativeLayout>
 
@@ -74,7 +76,8 @@
         android:layout_alignParentRight="true"
         android:text="Lokasi tidak diketahui"
         android:textColor="@color/colorWhite"
-        android:maxLength="25"/>
+        android:maxLength="25"
+        android:paddingRight="5dp"/>
 
     <RelativeLayout
         android:id="@+id/frmInput"

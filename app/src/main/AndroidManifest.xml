@@ -59,6 +59,10 @@
         <activity
             android:name=".ResetPassActivity"
             android:label="Reset Password" />
+
+        <activity
+            android:name=".HelpActivity"
+            android:label="Bantuan"/>
     </application>
 
 </manifest>

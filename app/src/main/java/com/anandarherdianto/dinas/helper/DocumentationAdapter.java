@@ -9,8 +9,11 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -83,6 +86,13 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
             }
         });
 
+        holder.opsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(holder.opsi);
+            }
+        });
+
         mShortAnimationDuration = dContext.getResources().getInteger(
                 android.R.integer.config_longAnimTime);
     }
@@ -93,7 +103,7 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView dThumbnail,dProfile;
+        public ImageView dThumbnail,dProfile, opsi;
         public TextView dTitle, dName, dDate, dTemp;
         public ExpandableTextView expandableTextView;
 
@@ -101,6 +111,7 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
             super(itemView);
             dThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
             dProfile = (ImageView) itemView.findViewById(R.id.imgProfile);
+            opsi = (ImageView) itemView.findViewById(R.id.opsiDoc);
             dName = (TextView) itemView.findViewById(R.id.txtName);
             dTitle = (TextView) itemView.findViewById(R.id.title);
             //dDesc = (TextView) itemView.findViewById(R.id.description);
@@ -283,4 +294,40 @@ public class DocumentationAdapter extends RecyclerView.Adapter<DocumentationAdap
         });
         */
     }
+
+    /**
+     * Showing popup menu when tapping on 3 dots
+     */
+
+    private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(dContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_album, popup.getMenu());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.show();
+    }
+
+    /**
+     * Click listener for popup menu items
+     */
+
+    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+
+        public MyMenuItemClickListener() {
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.action_delete:
+                    Toast.makeText(dContext, "Delete", Toast.LENGTH_SHORT).show();
+                    return true;
+
+                default:
+            }
+            return false;
+        }
+    }
+
 }
