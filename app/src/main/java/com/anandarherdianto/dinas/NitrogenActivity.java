@@ -38,7 +38,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NitrogenActivity extends AppCompatActivity implements NitrogenImageDialogBox.MyInterface {
 
@@ -1102,6 +1104,11 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
     }
 
     private int[] getRGB(Bitmap img) {
+
+        //List<String> redclr = new ArrayList<String>();
+        //List<String> greclr = new ArrayList<String>();
+        //List<String> bluclr = new ArrayList<String>();
+
         long redColors = 0;
         long greenColors = 0;
         long blueColors = 0;
@@ -1114,6 +1121,9 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
                 redColors += Color.red(c);
                 greenColors += Color.green(c);
                 blueColors += Color.blue(c);
+                //redclr.add(String.valueOf(Color.red(c)));
+                //greclr.add(String.valueOf(Color.green(c)));
+                //bluclr.add(String.valueOf(Color.blue(c)));
             }
         }
         // calculate average of bitmap r,g,b values
@@ -1123,8 +1133,15 @@ public class NitrogenActivity extends AppCompatActivity implements NitrogenImage
 
         //String rgbHex = String.format("%02x%02x%02x", red, green, blue).toUpperCase();
 
-        //Log.d("TAG_RGB", rgbHex);
+        /*
+        Log.d("TAG_RGB", "RGB Extraction Results :");
+        Log.d("TAG_RGB", "R[] = "+redclr);
+        Log.d("TAG_RGB", "G[] = "+greclr);
+        Log.d("TAG_RGB", "B[] = "+bluclr);
+        Log.d("TAG_RGB", " ");
+        Log.d("TAG_RGB", "Average :");
         Log.d("TAG_RGB", "R = " + red + "; G = " + green + "; B = " + blue);
+        */
 
         return new int[]{(int) red, (int) green, (int) blue};
 

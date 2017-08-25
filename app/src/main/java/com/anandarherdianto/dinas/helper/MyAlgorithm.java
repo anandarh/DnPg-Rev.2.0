@@ -1,5 +1,7 @@
 package com.anandarherdianto.dinas.helper;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -91,6 +93,7 @@ public class MyAlgorithm {
 
 
         //find disnaces
+        //Log.d("ANALYZE", "Distance Comparison Results :");
         for(CodeLevel clevel : levelList){
             double dist = 0.0;
             for(int j = 0; j < clevel.levelAttributes.length; j++){
@@ -99,21 +102,29 @@ public class MyAlgorithm {
             double distance = Math.sqrt( dist );
             resultList.add(new Result(distance,clevel.levelName));
             //System.out.println(distance);
+           //Log.d("ANALYZE", "Distance = "+String.format( "%.14f", distance )+" | "+clevel.levelName);
+
         }
+        //Log.d("ANALYZE", "--------------------------------------");
+        //Log.d("ANALYZE", " ");
 
 
         Collections.sort(resultList, new DistanceComparator());
         String[] ss = new String[k];
+        //Log.d("ANALYZE", "The Shortest Distance :");
         for(int x = 0; x < k; x++){
             //System.out.println(resultList.get(x).levelName+ " .... " + resultList.get(x).distance);
+            //Log.d("ANALYZE", resultList.get(x).levelName+ " .... " + String.format( "%.14f", resultList.get(x).distance));
             //get classes of k nearest dataset (level names) from the list into an array
             ss[x] = resultList.get(x).levelName;
         }
         resultLevel = String.valueOf(findMajorityClass(ss).charAt(6));
 
-
+        //Log.d("ANALYZE", "--------------------------------------");
+        //Log.d("ANALYZE", " ");
 
         //System.out.println("Class of new instance is: "+majClass);
+        //Log.d("ANALYZE", "Class of new instance is: Level "+resultLevel);
 
     }
 

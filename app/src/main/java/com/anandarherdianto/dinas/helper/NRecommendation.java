@@ -1,5 +1,7 @@
 package com.anandarherdianto.dinas.helper;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 
 /**
@@ -64,6 +66,29 @@ public class NRecommendation {
                 nRecommend = 50;
             }
         }
+
+        /*
+        Log.d("RECOMMEND", "Classification Results Of Each Sample.");
+        Log.d("RECOMMEND", "Sample 1 = Level "+level1);
+        Log.d("RECOMMEND", "Sample 2 = Level "+level2);
+        Log.d("RECOMMEND", "Sample 3 = Level "+level3);
+        Log.d("RECOMMEND", "Sample 4 = Level "+level4);
+        Log.d("RECOMMEND", "Sample 5 = Level "+level5);
+        Log.d("RECOMMEND", "Sample 6 = Level "+level6);
+        Log.d("RECOMMEND", "Sample 7 = Level "+level7);
+        Log.d("RECOMMEND", "Sample 8 = Level "+level8);
+        Log.d("RECOMMEND", "Sample 9 = Level "+level9);
+        Log.d("RECOMMEND", "Sample 10 = Level "+level10);
+        Log.d("RECOMMEND", "--------------------------------------");
+        Log.d("RECOMMEND", " ");
+
+        Log.d("RECOMMEND", "Average of all levels is: "+nAvg);
+        Log.d("RECOMMEND", " ");
+        Log.d("RECOMMEND", "Production target is: "+jmlTargetProduksi+"ton/ha");
+        Log.d("RECOMMEND", " ");
+        Log.d("RECOMMEND", "Recommended value is: "+nRecommend+"kg/ha");
+        */
+
     }
 
     public void setLevel1(int level1) {

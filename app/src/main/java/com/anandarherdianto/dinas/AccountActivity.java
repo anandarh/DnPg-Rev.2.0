@@ -364,7 +364,7 @@ public class AccountActivity extends AppCompatActivity {
                 params.put("userpass", oldPassword);
                 params.put("newpass", newPassword);
                 params.put("name", name);
-                params.put("name", email);
+                params.put("email", email);
                 params.put("user_id", userId);
 
                 return params;
